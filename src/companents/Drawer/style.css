@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Hind&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+
+.prof_img{
+    text-align: center;
+    margin-left: 20px;
+    height: 40px;
+    width: 40px;
+    border-radius: 10px;
+}
+.Drawer_style{
+    background-color:#032435 ;
+}
+.drawer_box{
+    background-color: white;
+    border-radius: 10px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    margin-top: 20px;
+ 
+}
+.drawer_box1{
+    padding-top: 10px;  
+    background-color: white;
+    border-radius: 10px;
+    margin-top: 20px;
+    font-family: 'Hind', sans-serif;
+}
+.text{
+    text-decoration-style: dotted;
+    margin-left: 10px;
+}
+
+.mainPage{
+    margin: 25px;
+    margin-right: 35px;
+}
+.DrawerPage{
+    width: 40px;
+}
+.userName{
+
+}

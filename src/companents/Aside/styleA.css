@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Hind&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Hind+Vadodara&display=swap');
+
+  @import url('https://fonts.googleapis.com/css2?family=Sora&display=swap');
+
+
+.prof_img{
+    text-align: center;
+    margin-left: 25px;
+    height: 40px;
+    width: 40px;
+    border-radius: 10px;
+}
+.Drawer_style{
+    background-color:#032435 ;
+}
+.drawer_box{
+    background-color: white;
+    border-radius: 10px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    margin-top: 20px;
+ 
+ 
+ 
+}
+.drawer_box1{
+    padding-top: 10px;  
+    background-color: white;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+.text1{
+ 
+    font-family: 'Montserrat', sans-serif;
+}
+
+.mainPageR{
+   width: 330px;
+   margin-top: 20px;
+   margin-left: 10px;
+ 
+}
+.DrawerPage{
+    width: 40px;
+}
+.userName{
+    /* font-family: Arial, Helvetica, sans-serif; */
+    font-family: 'Rubik', sans-serif;
+
+}
+.request
+{
+    font-family: 'Sora', sans-serif;
+    font-size: 22px;
+    color: #666666;
+}
+.button_dev{
+    width: 100px;
+    height: 40px;
+    border-radius: 25px;
+}
+.button_continor{
+    text-align: center;
+    margin-top: 20px;
+    
+}
+.sanoq{
+    background-color: #1976d2;
+    border-radius: 100%;
+    padding-left: 6px;
+    padding-right: 6px;
+    color: white;
+   
+}
+.contact{
+    font-family: 'Sora', sans-serif;
+    font-size: 22px;
+    color: #666666;
+    margin-top: 15px;
+  
+}
+.sanoq_con{
+    margin-top: 15px;
+ 
+    background-color: #1976d2;
+    border-radius: 100%;
+    padding-left: 6px;
+    padding-right: 6px;
+    color: white;
+}

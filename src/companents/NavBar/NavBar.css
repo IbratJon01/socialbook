@@ -1,0 +1,55 @@
+.navbar__barContent {
+    height: 65px;
+    background-color: white;
+    border-bottom: 1px solid #dbdbdb;
+}
+.navbar_logo{
+    margin-top: 10px;
+}
+.navbar__img {
+    margin:15px 10px;
+}
+.navbar__searchBar {
+    height: 30px;
+    width: 335px;
+    margin-top: 15px;
+
+    border: 1px solid #dbdbdb;
+    text-align: center;
+    background-color: #fafafa;
+    border-radius: 15px;
+}
+
+/* new code */
+.creat{ 
+    text-align: center;
+    margin-top: 20px;
+    width: 140px;
+    height: 65px;
+    border-radius: 15px;
+
+
+   
+}
+.creat_photo{
+    margin-top: 20px;
+    text-align: center;
+    height: 55px;
+    width:55px;
+    border-radius: 15px;
+}
+
+.text_c{
+    margin-bottom: 40px;
+}
+.Creat_text{
+    margin-top: 15px;
+    text-align: center;
+    width: 120px;
+    height: 50px;
+    border-radius: 15px;
+    
+}
+.button{
+    border-radius: 15px;
+}

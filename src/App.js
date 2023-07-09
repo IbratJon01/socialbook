@@ -1,25 +1,29 @@
 import logo from './logo.svg';
 import './App.css';
-
+import LoginPage from './companents/LoginPage/LoginPage';
+import Home from './companents/HomePage/Home';
+import DrawerMn1 from './companents/Drawer/DrawerMn1';
+import MainContent1 from './companents/MainContent/MainContent1';
+import Account from './companents/Account/account';
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {
+        // (localStorage.getItem("users")==undefined|| localStorage.getItem("users")==null)?
+        // <LoginPage/>:<Home/>
+
+        // <DrawerMn1/>
+        // <MainContent1/>
+        
+
+        (localStorage.getItem("users")==undefined|| localStorage.getItem("users")==null)?
+        <LoginPage/>:<Account/>
+      }
+
     </div>
   );
 }
 
 export default App;
+
+
