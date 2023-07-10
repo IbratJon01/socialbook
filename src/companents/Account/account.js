@@ -9,7 +9,7 @@ import NavBar1 from '../NavBar/Navbar1';
 import DrawerMn1 from '../Drawer/DrawerMn1';
 import Aside from '../Aside/Aside';
 import Contacts from '../Contact/contact';
-import PostDelete from '../CRUD/postDelete'
+
 import Statusa from '../Account/statusa'
 import PostUser from '../Post/PostUser'
 
