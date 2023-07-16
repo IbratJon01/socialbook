@@ -1,39 +1,75 @@
+
+
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import "./status.css";
 import { Avatar } from '@material-ui/core';
 import prof_img from '../../images/pp1.png'
-import head_img from '../../images/ToasdUsf5.webp'
-import { Box ,Grid} from "@mui/material";import Button from '@mui/material/Button';
-const userId  = localStorage.getItem("users");
-const userId1  = localStorage.getItem("users");
-// Bitta statusga tegishli storylar export qilommiz
+import { Box ,Grid} from "@mui/material";
+import Button from '@mui/material/Button';
+import {  Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, List, ListItem, ListItemText } from '@material-ui/core';
+import AccountUsers from './AccountUsers'
+import Account from './account';
+import { Link } from 'react-router-dom';
 
-export const getStatusList = async (statusId, path, timeStamp) => {
-  try {
-    const response = await axios.get(`http://localhost:8080/status/user/${userId}`, {
-      params: {
-        statusId,
-        path,
-        timeStamp,
-      },
-    });
-    console.log(response.data);
-    return Array.isArray(response.data) ? response.data : [];
-    
-  } catch (error) {
-    console.error('Error fetching status data:', error);
-    return [];
-  }
-};
+const UserStatusList = ({ userId  }) => {
 
+  const [followers, setFollowers] = useState([]);
+  const [following, setFollowing] = useState([]);
+
+   const [userData, setUser] = useState([]);
+   const [open, setOpen] = useState(false);
+   const [selectedUser, setSelectedUser] = useState(null);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
 
-const UserStatusList = ({  }) => {
-
-
+  const followings = [{userName:'Gaybul_ov',name:"Gaybulla Negmatov"},{userName:'Alisher_ev',name:"Alisher Fayzullayev'"} ,{userName:'Nodir_007',name:'Nodir Rahimov'} ];
+  //Users GET data
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8080/users/${userId}`);
+        const userData = response.data;
+        setUser(userData);
   
-  const [userStatuses, setUserStatuses] = useState([]);
+        const fetchFollowers = async () => {
+          try {
+            const followersResponse = await fetch(`http://localhost:8080/users/${userData.id}/followers`);
+            const followersData = await followersResponse.json();
+            setFollowers(followersData);
+  
+          } catch (error) {
+            console.error('Error fetching followers:', error);
+          }
+        };
+        fetchFollowers();
+  
+        const fetchFollowing = async () => {
+          try {
+            const followingResponse = await fetch(`http://localhost:8080/users/${userData.id}/following`);
+            const followingData = await followingResponse.json();
+            setFollowing(followingData);
+  
+          } catch (error) {
+            console.error('Error fetching following:', error);
+          }
+        };
+        fetchFollowing();
+  
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+  
+    fetchUser();
+  }, [userId]);
+  
 
 
 
@@ -48,29 +84,72 @@ const UserStatusList = ({  }) => {
            <Grid item xs={9}>
            <Grid container className='follow_status'> 
            <Grid item xs={3}> <Button variant="text" >0 posts</Button></Grid>
-           <Grid item xs={4}><Button variant="text">77 following</Button></Grid>
-           <Grid item xs={4}><Button variant="text">171 followers</Button></Grid></Grid>
+           <Grid item xs={4}><Button variant="text"><span className='follow'>{followers.length} </span> Followers</Button></Grid>
+           <Grid item xs={4}><Button variant="text"><span  className='follow'>{following.length} </span>  following</Button></Grid></Grid>
            </Grid>
            
       </Grid>
       <div className='bio'> <span className='text1'> <span className='userName'>Bio :</span> We’ve trained a model called ChatGPT which interacts in a conversational way. The dialogue format makes it possible for ChatGPT to answer followup questions, admit its mistakes, challenge incorrect premises, and reject inappropriate requests.</span> </div>
      
-      
-           
+      <div>
+      <Button variant="contained" color="primary" onClick={handleOpen}>
+        Open Small Screen
+      </Button>
+      <Dialog open={open} onClose={handleClose} maxWidth="xs" fullWidth>
+        <DialogTitle>Followings</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Here is a list of your followings:
+          </DialogContentText>
         
-      {/* {userStatuses.length > 0 ? (
-        <ul>
-          {userStatuses.map(status => (
-            <li key={status.statusId}>
-              <div>Status ID: {status.statusId}</div>
-              <div>Path: {status.path}</div>
-              <div>Timestamp: {status.timeStamp}</div>
-            </li>
+        <List>
+          {followings.map((following, index) => (
+            <ListItem key={index}>
+              <ListItemText>
+              <div >
+                  <div className='account'>
+                    <Grid container className='follow_box'>
+                    <Grid item xs={2.5}> <img className="prof_img" src={prof_img}/></Grid>
+                      <Grid item xs={6}>
+                        <span className='text'>
+                          <span
+                            className='userName'
+                          
+                          >
+                            <Link
+                          to={{
+                            pathname: '/account-users',
+                            state: { following }
+                          }}
+                        >
+                          {following.userName}
+                        </Link>
+                            
+                          </span>
+                          <br />
+                          <span className='text_follow_name'>{following.name}</span>
+                        </span>
+                      </Grid>
+                      <Grid item xs={3.5}>
+                        <Button className='button_dev' variant="outlined">Drsss</Button>
+                      </Grid>
+                    </Grid>
+                  </div>
+                </div>
+              </ListItemText>
+            </ListItem>
           ))}
-        </ul>
-      ) : (
-        <p>User {userId}ning hech qanday statusi yo'q.</p>
-      )} */}
+        </List>
+
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+     
     </div>
   );
 };
@@ -81,91 +160,3 @@ const UserStatusList = ({  }) => {
 export default UserStatusList;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import React, { useEffect, useState } from 'react';
-// import axios from 'axios';
-
-
-
-
-
-// // import React from 'react';
-// console.log();
-
-
-// function UserStatusList() {
-//   const [statusList, setStatusList] = useState([]);
-//   let payload = {"userId": JSON.parse(localStorage.getItem("users")).uid}
-//   console.log(payload);
-
-
-// const StatusList = ({ status, userId }) => {
-//   const filteredStatuses = status.filter(status => status.userId === userId);
-// //   console.log(filteredStatuses);
-
-// }
-
-//   useEffect(() => {
-//     fetchUserStatuses();
-//   }, []);
-
-
-//   const fetchUserStatuses = () => {
-//     axios.get('http://localhost:8080/status')
-//       .then(response => {
-//         setStatusList(response.data);
-    
-//         console.log(response.data.filter(status => status.userId === payload));
-//       })
-//       .catch(error => {
-//         console.log(error);
-//       });
-//   };
-
-
-
-//   return (
-    
-//     <div>
-//       <h1>User Status List</h1>
-//       <ul>
-//         {statusList.map(status => (
-//           <li key={status.statusId}>
-//             <p>Status ID: {status.statusId}</p>
-//             <p>User ID: {status.userId}</p>
-//             <p>Path: {status.path}</p>
-//             <p>Timestamp: {status.timeStamp}</p>
-//           </li>
-//         ))}
-//       </ul>
-//     </div>
-//   );
-// }
-
-// function App() {
-//   return (
-//     <div>
-//       <UserStatusList />
-//     </div>
-//   );
-// }
-
-
-
-// export default App;

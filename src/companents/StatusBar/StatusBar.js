@@ -6,7 +6,7 @@ import uploadimage from "../../images/statusadd.png";
 import { storage, auth } from "../firebase";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import Statusa from "../Account/statusa";
-const userAuth=localStorage.getItem("users")
+const userAuth=JSON.parse(localStorage.getItem('users')).uid
 
 class StatusBar extends Component {
     constructor(props) {
@@ -58,7 +58,7 @@ class StatusBar extends Component {
 
                     let payload = {
                         "statusId": Math.floor(Math.random() * 100000).toString(),
-                        "userId": userAuth,
+                        "userId": JSON.parse(localStorage.getItem('users')).uid,
                         "path": downloadURL,
                         "timeStamp": new Date().getTime()
                     }

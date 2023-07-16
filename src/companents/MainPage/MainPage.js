@@ -17,9 +17,9 @@ export const getPost = () => {
         return filteredPosts;
       });
   }
-const userAuth=localStorage.getItem("users")
-const vaqt =new Date().getTime();
-console.log(vaqt);
+const userAuth=JSON.parse(localStorage.getItem('users')).uid
+const users = JSON.parse(localStorage.getItem('users'));
+
 
 class MainPage extends Component {
     constructor(props) {
@@ -76,7 +76,7 @@ class MainPage extends Component {
               
                 let payload = {
                     "postId": Math.floor(Math.random()*100000).toString(),
-                    "userId": localStorage.getItem("users"),
+                    "userId": JSON.parse(localStorage.getItem('users')).uid,
                     "postPath": downloadURL,
                     "timeStamp": new Date().getTime(),
                     "likeCount": 0

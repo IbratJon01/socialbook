@@ -12,7 +12,7 @@ import Contacts from '../Contact/contact';
 
 import Statusa from '../Account/statusa'
 import PostUser from '../Post/PostUser'
-
+const userId  = JSON.parse(localStorage.getItem('users')).uid
 class Account extends Component {
     constructor(props) {
         super(props);
@@ -28,7 +28,7 @@ class Account extends Component {
                         <div>
                             {/* <Userlll/> */}
                 {/* <AccountNav/> */}
-                <Statusa/>
+                <Statusa userId={userId}/>
                 <StatusBar/>
                             <MainPage />
                          
