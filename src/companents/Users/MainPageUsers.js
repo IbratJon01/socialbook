@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import "./MainPage.css";
+import "../MainPage/MainPage.css";
 import uploadImage from "../../images/upload.png";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import LinearProgress from '@mui/material/LinearProgress';
@@ -7,7 +7,7 @@ import PostUser from "../Post/PostUser"
 
 const userAuth=JSON.parse(localStorage.getItem('users')).uid
 
-class MainPage extends Component {
+class MainPageUsers extends Component {
     constructor(props) {
         super(props);
         this.state = { 
@@ -29,7 +29,7 @@ class MainPage extends Component {
             .then(response => response.json())
             .then(data => {
                
-                const filteredPosts = data.filter(post => post.userId === userAuth);
+                const filteredPosts = data.filter(post => post.userId === this.props.userId);
              
                 thisContext.setState({postArray: filteredPosts});
                 console.log(filteredPosts);
@@ -127,4 +127,4 @@ class MainPage extends Component {
     }
 }
  
-export default MainPage;
+export default MainPageUsers;

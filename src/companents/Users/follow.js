@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import "./status.css";
+import "../Account/status.css";
 import { Avatar } from '@material-ui/core';
 import prof_img from '../../images/pp1.png'
 import { Box ,Grid} from "@mui/material";
@@ -13,9 +13,11 @@ const UserStatusList = ({ userId  }) => {
 
   const [followers, setFollowers] = useState([]);
   const [following, setFollowing] = useState([]);
+
    const [userData, setUser] = useState([]);
    const [open, setOpen] = useState(false);
    const [openFollowers, setOpenFollowers] = useState(false);
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -31,6 +33,7 @@ const UserStatusList = ({ userId  }) => {
   const handleCloseFollowers = () => {
     setOpenFollowers(false);
   };
+
 
 
   const followings = [{userName:'Gaybul_ov',name:"Gaybulla Negmatov"},{userName:'Alisher_ev',name:"Alisher Fayzullayev'"} ,{userName:'Nodir_007',name:'Nodir Rahimov'} ];
@@ -88,7 +91,7 @@ const UserStatusList = ({ userId  }) => {
            <Grid item xs={9}>
            <Grid container className='follow_status'> 
            <Grid item xs={3}> <Button variant="text" >0 posts</Button></Grid>
-           <Grid item xs={4}><Button variant="text" onClick={handleOpenFollowers}><span className='follow'>{followers.length} </span> Followers</Button></Grid>
+           <Grid item xs={4}><Button variant="text"  onClick={handleOpenFollowers}><span className='follow'>{followers.length} </span> Followers</Button></Grid>
            <Grid item xs={4}><Button variant="text" onClick={handleOpen}><span  className='follow'>{following.length} </span>  following</Button></Grid></Grid>
            </Grid>
            
@@ -96,7 +99,7 @@ const UserStatusList = ({ userId  }) => {
       <div className='bio'> <span className='text1'> <span className='userName'>Bio :</span> We’ve trained a model called ChatGPT which interacts in a conversational way. The dialogue format makes it possible for ChatGPT to answer followup questions, admit its mistakes, challenge incorrect premises, and reject inappropriate requests.</span> </div>
      
       <div>
-    
+ 
       <Dialog open={open} onClose={handleClose} maxWidth="xs" fullWidth>
         <DialogTitle>Followings</DialogTitle>
         <DialogContent>
@@ -105,7 +108,7 @@ const UserStatusList = ({ userId  }) => {
           </DialogContentText>
         
         <List>
-          {followings.map((following, index) => (
+          {following.map((following, index) => (
             <ListItem key={index}>
               <ListItemText>
               <div >
@@ -115,8 +118,9 @@ const UserStatusList = ({ userId  }) => {
                       <Grid item xs={6}>
                         <span className='text'>
                           <span
-                            className='userName'>
-                            <Link className='link' to='/account-users' state={{dataUser:following}}> {following.userName} </Link>
+                            className='userName'
+                            onClick={handleClose}>
+                            <Link to='/account-users' state={{dataUser:following}}> {following.userName} </Link>
                             
                           </span>
                           <br />
@@ -141,7 +145,6 @@ const UserStatusList = ({ userId  }) => {
           </Button>
         </DialogActions>
       </Dialog>
-
       <Dialog open={openFollowers} onClose={handleCloseFollowers} maxWidth="xs" fullWidth>
         <DialogTitle>Followings</DialogTitle>
         <DialogContent>

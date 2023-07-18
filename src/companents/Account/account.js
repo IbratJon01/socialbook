@@ -9,7 +9,7 @@ import NavBar1 from '../NavBar/Navbar1';
 import DrawerMn1 from '../Drawer/DrawerMn1';
 import Aside from '../Aside/Aside';
 import Contacts from '../Contact/contact';
-
+import FooterBar from '../Media/footerBar'
 import Statusa from '../Account/statusa'
 import PostUser from '../Post/PostUser'
 const userId  = JSON.parse(localStorage.getItem('users')).uid
@@ -35,7 +35,7 @@ class Account extends Component {
                         
                         </div>
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={3} sx={{display:{xs:"none", sm:"block"} }}>
                         <Aside/>
                         <Contacts/>
                         {/* <InfoSection />
@@ -43,6 +43,7 @@ class Account extends Component {
                     </Grid>
                 
                 </Grid>
+                <FooterBar/>
              
             </div>
          );

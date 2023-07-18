@@ -36,16 +36,11 @@ class NavBar1 extends Component {
                         <Grid item xs={2} container spacing={2}>
                             {/* <div className='creat'><Button style={CenterFocusStrong} variant="contained" endIcon={<AddBoxIcon />} >Creat</Button></div> */}
                            <div className='creat'><Button variant="contained" endIcon={<AddBoxIcon />} sx={{borderRadius:"15px"}}>Creat</Button></div> 
-                            <div className='creat_photo'><Avatar sx={{ bgcolor: deepOrange[400], width:"40px",height:"40px",borderRadius:"15px"}} variant="square">N</Avatar></div></Grid>
+                            <div className='creat_photo'><Avatar sx={{ bgcolor: deepOrange[400], width:"40px",height:"40px",borderRadius:"15px"}} variant="square">N</Avatar></div>
+                 </Grid> 
                      
                        
-                        {/* <Grid item xs={3} style={{"display":"flex"}}>
-                        
-                           <Button style={CenterFocusStrong} variant="contained" endIcon={<AddBoxIcon />} className='Creat_text'>Creat</Button>
-                      
-                            <Avatar src={pp} className="navbar__img" style={{"maxWidth":"25px","maxHeight":"25px"}} />
-                        </Grid> */}
-                        {/* <Grid item xs={1}></Grid> */}
+                    
                     </Grid>
                 </div>
             </div>

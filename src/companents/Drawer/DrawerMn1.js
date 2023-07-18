@@ -4,7 +4,7 @@ import { Drawer,Divider, Toolbar,ListItemText ,Box,ListItem,ListItemButton,List,
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import ListItemIcon from '@mui/material/ListItemIcon'
-import "./style.css";
+import "./styleDraw.css";
 import prof_img from '../../images/pp1.png'
 import MainContent1 from '../MainContent/MainContent1';
 

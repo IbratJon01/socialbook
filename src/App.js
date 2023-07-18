@@ -7,7 +7,10 @@
  import DrawerMn1 from './companents/Drawer/DrawerMn1';
  import MainContent1 from './companents/MainContent/MainContent1';
  import Account from './companents/Account/account';
- import AccountUsers from './companents/Account/AccountUsers';
+ import AccountUsers from './companents/Users/AccountUsers';
+ import Demojs from './companents/Account/demo'
+import Footure1 from './companents/Media/footerBar';
+
  function App() {
    return (
      <div className="App">
@@ -17,6 +20,8 @@
   <LoginPage/>:<Account/>
 } />
          <Route path="/account-users" element={<AccountUsers />} />
+         <Route path="/d" element={<Demojs/>}/>
+         <Route path="/d1" element={<Footure1/>}/>
        </Routes>
      </Router>
  </div>
