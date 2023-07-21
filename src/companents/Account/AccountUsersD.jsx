@@ -1,5 +1,5 @@
 import Sidebar from "../Media/Sidebar";
-import Feed from "../Media/Feed";
+import Feed from "../Media/MainPageUser";
 import Rightbar from "../Media/Rightbar";
 import { Box, createTheme, Stack, ThemeProvider } from "@mui/material";
 import Navbar from "../Media/Navbar";

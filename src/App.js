@@ -10,18 +10,22 @@
  import AccountUsers from './companents/Users/AccountUsers';
  import Demojs from './companents/Account/demo'
 import Footure1 from './companents/Media/footerBar';
+import  AccountUsersD from './companents/Account/AccountUsersD';
+import App1 from './companents/search/App';
 
  function App() {
    return (
      <div className="App">
        <Router>
        <Routes>
-         <Route path="/" element={  (localStorage.getItem("users")==undefined|| localStorage.getItem("users")==null)?
+         <Route path="/d" element={  (localStorage.getItem("users")==undefined|| localStorage.getItem("users")==null)?
   <LoginPage/>:<Account/>
 } />
          <Route path="/account-users" element={<AccountUsers />} />
-         <Route path="/d" element={<Demojs/>}/>
+         <Route path="/" element={<Demojs/>}/>
+         <Route path="/account-user" element={<AccountUsersD/>}/>
          <Route path="/d1" element={<Footure1/>}/>
+         <Route  path="/search" element={<App1/>}/>
        </Routes>
      </Router>
  </div>

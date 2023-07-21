@@ -3,7 +3,7 @@ import axios from 'axios';
 import "./status.css";
 import { Avatar } from '@material-ui/core';
 import prof_img from '../../images/pp1.png'
-import { Box ,Grid} from "@mui/material";
+import { Box ,Grid ,Card} from "@mui/material";
 import Button from '@mui/material/Button';
 import {  Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, List, ListItem, ListItemText } from '@material-ui/core';
 
@@ -82,7 +82,7 @@ const UserStatusList = ({ userId  }) => {
      
       <div className='header'></div>
       {/* <div className='profel_img2'><Avatar className="img__status" src={prof_img}/></div> */}
-       <Grid container >
+     <Grid container >
       
            <Grid  item xs={3}><div className='profel_img2'><Avatar className="img__status" src={prof_img}/></div></Grid>
            <Grid item xs={9}>
@@ -93,7 +93,7 @@ const UserStatusList = ({ userId  }) => {
            </Grid>
            
       </Grid>
-      <div className='bio'> <span className='text1'> <span className='userName'>Bio :</span> We’ve trained a model called ChatGPT which interacts in a conversational way. The dialogue format makes it possible for ChatGPT to answer followup questions, admit its mistakes, challenge incorrect premises, and reject inappropriate requests.</span> </div>
+      <div className='bio' style={{marginBottom:5}}> <span className='text1'> <span className='userName'>Bio :</span> We’ve trained a model called ChatGPT which interacts in a conversational way. The dialogue format makes it possible for ChatGPT to answer followup questions, admit its mistakes, challenge incorrect premises, and reject inappropriate requests.</span> </div>
      
       <div>
     
@@ -105,7 +105,7 @@ const UserStatusList = ({ userId  }) => {
           </DialogContentText>
         
         <List>
-          {followings.map((following, index) => (
+          {following.map((following, index) => (
             <ListItem key={index}>
               <ListItemText>
               <div >

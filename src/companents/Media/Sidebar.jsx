@@ -16,16 +16,34 @@ import {
   ListItemIcon,
   ListItemText,
   Switch,
+  Grid
 } from "@mui/material";
 import React from "react";
+import prof_img from '../../images/pp1.png'
+import "../Drawer/styleDraw.css"
+import MapsUgcOutlinedIcon from '@mui/icons-material/MapsUgcOutlined';
 
 const Sidebar = ({mode,setMode}) => {
   return (
-    <Box flex={1} p={2} sx={{ display: { xs: "none", sm: "block" } }}>
-      <Box position="fixed">
+    <Box  flex={2} p={2} sx={{ margin: "25px",
+    display: { xs: "none", sm: "block" } }}>
+      <Box  position="fixed" sx={{ overflow: 'auto' ,width:300}} >
+            <div className='account'>
+              <Grid container className='drawer_box'>
+           {/* <Grid item xs={1}></Grid> */}
+                <Grid item xs={1} > <img className="prof_img" src={prof_img}/></Grid>
+                <Grid item xs={6} sx={{marginLeft:6}}><span className='text'> <span className='userName'>Asadov Ibrat</span></span></Grid>
+                <Grid item xs={1}></Grid>
+                </Grid></div>
+        
+      
+       </Box>  
+     
+     
+      <Box sx={{backgroundColor:"white", width:300 , borderRadius:"10px"}} position="fixed" marginTop={18}>
         <List>
           <ListItem disablePadding>
-            <ListItemButton component="a" href="#home">
+            <ListItemButton component="a" href="/">
               <ListItemIcon>
                 <Home />
               </ListItemIcon>
@@ -41,11 +59,11 @@ const Sidebar = ({mode,setMode}) => {
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
-            <ListItemButton component="a" href="#simple-list">
+            <ListItemButton component="a" href="/">
               <ListItemIcon>
-                <Group />
+                <MapsUgcOutlinedIcon />
               </ListItemIcon>
-              <ListItemText primary="Groups" />
+              <ListItemText primary="Messages" />
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
@@ -57,11 +75,11 @@ const Sidebar = ({mode,setMode}) => {
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
-            <ListItemButton component="a" href="#simple-list">
+            <ListItemButton component="a" href="/account-user">
               <ListItemIcon>
                 <Person />
               </ListItemIcon>
-              <ListItemText primary="Friends" />
+              <ListItemText primary="Account" />
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
@@ -72,22 +90,8 @@ const Sidebar = ({mode,setMode}) => {
               <ListItemText primary="Settings" />
             </ListItemButton>
           </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton component="a" href="#simple-list">
-              <ListItemIcon>
-                <AccountBox />
-              </ListItemIcon>
-              <ListItemText primary="Profile" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton component="a" href="#simple-list">
-              <ListItemIcon>
-                <ModeNight />
-              </ListItemIcon>
-              <Switch onChange={e=>setMode(mode === "light" ? "dark" : "light")}/>
-            </ListItemButton>
-          </ListItem>
+        
+       
         </List>
       </Box>
     </Box>

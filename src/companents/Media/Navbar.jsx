@@ -10,6 +10,9 @@ import {
   styled,
   Toolbar,
   Typography,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
 } from "@mui/material";
 import React, { useState } from "react";
 import "../NavBar/Navbar1"
@@ -19,50 +22,19 @@ import insta_log from "../../images/logoSocialBook2.png"
 import { alpha } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
 import IconButton from '@mui/material/IconButton';
+import App from "../search/App"
 
 const StyledToolbar = styled(Toolbar)({
   display: "flex",
   justifyContent: "space-between",
 });
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  borderRadius: "20px",
+
+
+const Search = styled("div")(({ theme }) => ({
   backgroundColor: "#f5f5f5",
-
-}));
-// const Search = styled("div")(({ theme }) => ({
-//   backgroundColor: "#fafafa",
-//   padding: "0 10px",
-//   borderRadius: "20px",
-//   width: "30%",
-//   height:" 30px",
-//   border:" 1px solid #dbdbdb"
-//   // width:" 335px"
-
-
-// }));
-
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-  borderRadius: "15px",
-  backgroundColor: "#f5f5f5",
-  border:" 1px solid #dbdbdb",
-  // backgroundColor: alpha(theme.palette.common.white, 0.15),
-  // '&:hover': {
-  //   backgroundColor: alpha(theme.palette.common.white, 0.25),
-  // },
-  marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(1),
-    width: 'auto',
-  },
+  
+  borderRadius: "13px",
+ 
 }));
 
 
@@ -104,9 +76,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   return (
-    <div className="navbar__barContent"> 
+    <div  className="navbar__barContent"> 
      {/* <AppBar position="sticky"> */}
-      <StyledToolbar>
+
+
+       <StyledToolbar >
         <Typography variant="h6">
         <img  sx={{ display: { xs: "none", sm: "block" } }} className="navbar_logo" src={insta_log} width="165px" />
         {/* <img  sx={{ display: { xs: "block", sm: "none" } }} className="navbar_logo" src={insta_log} width="150px" /> */}
@@ -119,13 +93,112 @@ const Navbar = () => {
         <Icons>
           
            <Search sx={{display:{xs:"none",sm:"block"}}}>
-        <SearchIconWrapper>
-              <SearchIcon color="primary"/>
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
+           <ListItemButton  component="a" href="/search">
+{/*        
+           <ListItemIcon> */}
+           <SearchIcon color="primary" /> 
+         
+            {/* </ListItemIcon>
+            <ListItemText sx={{marginRight:10}} primary="Search..." /> */}
+             
+    
+       
+              
+               {/* <div>
+    
+    <Dialog open={open} onClose={handleClose} maxWidth="xs" fullWidth>
+      <DialogTitle>Followings</DialogTitle>
+      <DialogContent>
+        <DialogContentText>
+          Here is a list of your followings:
+        </DialogContentText>
+      
+      <List>
+        {following.map((following, index) => (
+          <ListItem key={index}>
+            <ListItemText>
+            <div >
+                <div className='account'>
+                  <Grid container className='follow_box'>
+                  <Grid item xs={2.5}> <img className="prof_img" src={prof_img}/></Grid>
+                    <Grid item xs={6}>
+                      <span className='text'>
+                        <span
+                          className='userName'>
+                          <Link className='link' to='/account-users' state={{dataUser:following}}> {following.userName} </Link>
+                          
+                        </span>
+                        <br />
+                        <span className='text_follow_name'>{following.name}</span>
+                      </span>
+                    </Grid>
+                    <Grid item xs={3.5}>
+                      <Button className='button_dev' variant="outlined">Drsss</Button>
+                    </Grid>
+                  </Grid>
+                </div>
+              </div>
+            </ListItemText>
+          </ListItem>
+        ))}
+      </List>
+
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleClose} color="primary">
+          Close
+        </Button>
+      </DialogActions>
+    </Dialog>
+
+    <Dialog open={openFollowers} onClose={handleCloseFollowers} maxWidth="xs" fullWidth>
+      <DialogTitle>Followings</DialogTitle>
+      <DialogContent>
+        <DialogContentText>
+          Here is a list of your followings:
+        </DialogContentText>
+      
+      <List>
+        {followers.map((follower, index) => (
+          <ListItem key={index}>
+            <ListItemText>
+            <div >
+                <div className='account'>
+                  <Grid container className='follow_box'>
+                  <Grid item xs={2.5}> <img className="prof_img" src={prof_img}/></Grid>
+                    <Grid item xs={6}>
+                      <span className='text'>
+                        <span
+                          className='userName'
+                          onClick={handleCloseFollowers}>
+                          <Link to='/account-users' state={{dataUser:follower}}> {follower.userName} </Link>
+                          
+                        </span>
+                        <br />
+                        <span className='text_follow_name'>{follower.name}</span>
+                      </span>
+                    </Grid>
+                    <Grid item xs={3.5}>
+                      <Button className='button_dev' variant="outlined">Drsss</Button>
+                    </Grid>
+                  </Grid>
+                </div>
+              </div>
+            </ListItemText>
+          </ListItem>
+        ))}
+      </List>
+
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleCloseFollowers} color="primary">
+          Close
+        </Button>
+      </DialogActions>
+    </Dialog>
+               </div> */}
+             </ListItemButton>
+          
           {/* <InputBase placeholder="search..." /> */}
           </Search>
         <Button variant="contained" endIcon={<AddBoxIcon />} sx={{borderRadius:"15px",width:" 115px",
@@ -164,6 +237,7 @@ const Navbar = () => {
         <MenuItem>My account</MenuItem>
         <MenuItem>Logout</MenuItem>
       </Menu>
+     
     {/* </AppBar> */}
   </div>
   );

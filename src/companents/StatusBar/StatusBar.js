@@ -6,6 +6,11 @@ import uploadimage from "../../images/statusadd.png";
 import { storage, auth } from "../firebase";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import Statusa from "../Account/statusa";
+import {
+ 
+    Card,
+
+  } from "@mui/material";
 const userAuth=JSON.parse(localStorage.getItem('users')).uid
 
 class StatusBar extends Component {
@@ -86,8 +91,8 @@ class StatusBar extends Component {
 
     render() {
         return (
-            <div>
-                <div className="statusbar__container">
+            <Card sx={{ marginRight:"5px"}}>
+                <div className="statusbar__container" >
                     <div className="fileupload">
                         <label htmlFor="file-upload-status">
                             <img className="statusbar__upload" src={uploadimage} width="55px" height="55px" />
@@ -108,7 +113,7 @@ class StatusBar extends Component {
                         ))
                     }
                 </div>
-            </div>
+            </Card>
         );
     }
 }

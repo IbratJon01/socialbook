@@ -9,6 +9,7 @@ import Aside from '../Aside/Aside';
 import Contacts from '../Contact/contact';
 import { useLocation } from 'react-router-dom';
 import Statusa from '../Users/follow'
+import Account from '../Account/account';
 
 function AccountUsers(props) {
    const location = useLocation();
@@ -17,7 +18,7 @@ function AccountUsers(props) {
    console.log(userId);
    const authUserID  = JSON.parse(localStorage.getItem('users')).uid
    if(dataUser.userId==authUserID){
-    return(<div>HELLO UZbekstamn</div>)
+    return(<Account/>)
    }
   return (
     <div>

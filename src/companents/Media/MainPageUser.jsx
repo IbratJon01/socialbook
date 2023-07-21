@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import Post from "./Post";
 import StatusBar from "../StatusBar/StatusBar";
 import MainPage from "../MainPage/MainPage";
-import Account from "../Account/account";
 import Statusa from "../Account/statusa"
 
 const Feed = () => {
@@ -25,8 +24,8 @@ const Feed = () => {
       ) : (
         
         <>
-   
-        <StatusBar/>
+        <Statusa/>
+        <StatusBar />
         <MainPage />
           <Post />
           <Post />

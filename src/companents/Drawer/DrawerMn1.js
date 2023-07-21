@@ -7,8 +7,6 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import "./styleDraw.css";
 import prof_img from '../../images/pp1.png'
 import MainContent1 from '../MainContent/MainContent1';
-
-
 import HomeIcon from '@mui/icons-material/Home';
 import PeopleIcon from '@mui/icons-material/People';
 import PhotoIcon from '@mui/icons-material/Photo';

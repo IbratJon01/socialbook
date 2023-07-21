@@ -54,7 +54,7 @@ console.log(props.id1);
 
   return (
   
-    <Card sx={{ maxWidth: 600 }}>
+    <Card>
       <CardHeader 
         avatar={
           <Avatar className="post__image" src="" />
