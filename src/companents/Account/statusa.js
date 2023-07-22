@@ -3,7 +3,7 @@ import axios from 'axios';
 import "./status.css";
 import { Avatar } from '@material-ui/core';
 import prof_img from '../../images/pp1.png'
-import { Box ,Grid ,Card} from "@mui/material";
+import { Grid } from "@mui/material";
 import Button from '@mui/material/Button';
 import {  Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, List, ListItem, ListItemText } from '@material-ui/core';
 
@@ -30,6 +30,7 @@ const UserStatusList = ({ userId  }) => {
 
   const handleCloseFollowers = () => {
     setOpenFollowers(false);
+    console.log(open);
   };
 
 

@@ -26,7 +26,7 @@ const Feed = () => {
         
         <>
    
-        <StatusBar/>
+        <StatusBar />
         <MainPage />
           <Post />
           <Post />

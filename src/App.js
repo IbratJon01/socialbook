@@ -10,7 +10,7 @@
  import AccountUsers from './companents/Users/AccountUsers';
  import Demojs from './companents/Account/demo'
 import Footure1 from './companents/Media/footerBar';
-import  AccountUsersD from './companents/Account/AccountUsersD';
+import  AccountUsersD from './companents/Users/AccountUsersD';
 import App1 from './companents/search/App';
 
  function App() {
@@ -24,8 +24,8 @@ import App1 from './companents/search/App';
          <Route path="/account-users" element={<AccountUsers />} />
          <Route path="/" element={<Demojs/>}/>
          <Route path="/account-user" element={<AccountUsersD/>}/>
-         <Route path="/d1" element={<Footure1/>}/>
-         <Route  path="/search" element={<App1/>}/>
+         <Route path="/d1" element={<Account/>}/>
+      
        </Routes>
      </Router>
  </div>

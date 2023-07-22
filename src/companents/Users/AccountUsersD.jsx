@@ -1,13 +1,15 @@
 import Sidebar from "../Media/Sidebar";
-import Feed from "../Media/MainPageUser";
+import Feed from "./MainPageUser";
 import Rightbar from "../Media/Rightbar";
 import { Box, createTheme, Stack, ThemeProvider } from "@mui/material";
 import Navbar from "../Media/Navbar";
-
+import { useLocation } from 'react-router-dom';
 import { useState } from "react";
 import FooterBar from "../Media/footerBar"
 
-function App() {
+function App(props) {
+  const location = useLocation();
+  const dataUser = location.state?.dataUser;
   const [mode, setMode] = useState("light");
 
   const darkTheme = createTheme({
@@ -22,7 +24,7 @@ function App() {
 
         <Stack direction="row" spacing={2} justifyContent="space-between">
         <Sidebar setMode={setMode} mode={mode}/>
-        <Feed />
+        <Feed dataUser={dataUser} />
          <Rightbar /> {/* <StatusBar/> */}
        
        

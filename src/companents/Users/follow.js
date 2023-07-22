@@ -120,7 +120,7 @@ const UserStatusList = ({ userId  }) => {
                           <span
                             className='userName'
                             onClick={handleClose}>
-                            <Link to='/account-users' state={{dataUser:following}}> {following.userName} </Link>
+                            <Link to='/account-user' state={{dataUser:following}}> {following.userName} </Link>
                             
                           </span>
                           <br />
@@ -165,7 +165,7 @@ const UserStatusList = ({ userId  }) => {
                           <span
                             className='userName'
                             onClick={handleCloseFollowers}>
-                            <Link to='/account-users' state={{dataUser:follower}}> {follower.userName} </Link>
+                            <Link to='/account-user' state={{dataUser:follower}}> {follower.userName} </Link>
                             
                           </span>
                           <br />

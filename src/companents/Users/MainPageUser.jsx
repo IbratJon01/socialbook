@@ -1,17 +1,21 @@
 import { Box, Stack, Skeleton } from "@mui/material";
 import React, { useState } from "react";
-import Post from "./Post";
-import StatusBar from "../StatusBar/StatusBar";
-import MainPage from "../MainPage/MainPage";
-import Statusa from "../Account/statusa"
+import Post from "../Media/Post";
+import StatusBarUsers from "./StatusBarUsers";
+import MainPageUsers from "./MainPageUsers";
+import Statusa from "./follow"
 
-const Feed = () => {
+const Feed = (props) => {
+
+  const userId = props.dataUser.userId;
+  console.log(userId);
+
   const [loading, setLoading] = useState(true);
 
   setTimeout(() => {
     setLoading(false);
   }, [3000]);
-
+  console.log(props.dataUser);
   return (
     <Box flex={4} p={{ xs: 0, md: 2 }}>
       {loading ? (
@@ -24,9 +28,10 @@ const Feed = () => {
       ) : (
         
         <>
-        <Statusa/>
-        <StatusBar />
-        <MainPage />
+  
+        <Statusa userId={userId}/>
+        <StatusBarUsers userId={props.dataUser.id} />
+        <MainPageUsers userId={props.dataUser.id}/>
           <Post />
           <Post />
           <Post />
