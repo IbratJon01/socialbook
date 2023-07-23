@@ -5,7 +5,10 @@ import { Grid } from "@mui/material";
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
 import "../Account/status.css"
+import App from '../Follow/followButton';
+
 const UserList = ({ users }) => {
+  const userId  = JSON.parse(localStorage.getItem('users')).uid
   return (
     <List>
       {users.map((user) => (
@@ -43,7 +46,8 @@ const UserList = ({ users }) => {
                         </span>
                       </Grid>
                       <Grid item xs={1.5}>
-                        <Button className='button_dev' variant="outlined">Drsss</Button>
+                        <App user={user} userId={userId} />
+                        {/* <Button className='button_dev' variant="outlined">Drsss</Button> */}
                       </Grid>
                     </Grid></ListItemText>
   

@@ -3,7 +3,7 @@ import axios from 'axios';
 import "../Account/status.css";
 import { Avatar } from '@material-ui/core';
 import prof_img from '../../images/pp1.png'
-import { Box ,Grid} from "@mui/material";
+import { Grid} from "@mui/material";
 import Button from '@mui/material/Button';
 import {  Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, List, ListItem, ListItemText } from '@material-ui/core';
 
@@ -87,7 +87,7 @@ const UserStatusList = ({ userId  }) => {
       {/* <div className='profel_img2'><Avatar className="img__status" src={prof_img}/></div> */}
        <Grid container >
       
-           <Grid  item xs={3}><div className='profel_img2'><Avatar className="img__status" src={prof_img}/></div></Grid>
+           <Grid  item xs={3} ><div className='profel_img2'><Avatar className="img__status" src={prof_img}/></div></Grid>
            <Grid item xs={9}>
            <Grid container className='follow_status'> 
            <Grid item xs={3}> <Button variant="text" >0 posts</Button></Grid>
