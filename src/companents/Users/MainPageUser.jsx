@@ -30,14 +30,11 @@ const Feed = (props) => {
         <>
   
         <Statusa userId={userId}/>
-        <StatusBarUsers userId={props.dataUser.id} />
-        <MainPageUsers userId={props.dataUser.id}/>
+        <StatusBarUsers userId={props.dataUser.userId} />
+        <MainPageUsers userId={props.dataUser.userId}/>
           <Post />
           <Post />
-          <Post />
-          <Post />
-          <Post />
-          <Post />
+       
         </>
       )}
     </Box>

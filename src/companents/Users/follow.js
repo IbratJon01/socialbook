@@ -6,8 +6,11 @@ import prof_img from '../../images/pp1.png'
 import { Grid} from "@mui/material";
 import Button from '@mui/material/Button';
 import {  Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, List, ListItem, ListItemText } from '@material-ui/core';
-
+import SettingsIcon from '@mui/icons-material/Settings'; // Settings ikonini import qiling
+import ExitToAppIcon from '@mui/icons-material/ExitToApp'; // Logout/Edit ikonini import qiling
+import IconButton from '@mui/material/IconButton';
 import { Link } from 'react-router-dom';
+import Setting from '../Account/Setting'
 
 const UserStatusList = ({ userId  }) => {
 
@@ -17,6 +20,18 @@ const UserStatusList = ({ userId  }) => {
    const [userData, setUser] = useState([]);
    const [open, setOpen] = useState(false);
    const [openFollowers, setOpenFollowers] = useState(false);
+   const [openSetting, setopenSetting] = useState(false);
+
+
+   const handleOpenSetting = () => {
+    setopenSetting(true);
+  };
+
+  const handleCloseSetting = () => {
+    setopenSetting(false);
+  };
+
+
 
   const handleOpen = () => {
     setOpen(true);
@@ -83,7 +98,30 @@ const UserStatusList = ({ userId  }) => {
   return (
     <div>
      
-      <div className='header'></div>
+     <div className='header'>
+        {/* Sozlamalar (Settings) buttoni */}
+        <Setting />
+       
+   
+      </div>
+{/* 
+      <Dialog open={openSetting} onClose={handleCloseSetting} maxWidth="xs" fullWidth>
+        <DialogTitle>Followings</DialogTitle>
+        <DialogContent>
+         
+        
+        <List>
+         
+        </List>
+
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseSetting} color="primary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog> */}
+    
       {/* <div className='profel_img2'><Avatar className="img__status" src={prof_img}/></div> */}
        <Grid container >
       

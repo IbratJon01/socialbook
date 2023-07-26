@@ -18,12 +18,35 @@ import {
   Switch,
   Grid
 } from "@mui/material";
-import React from "react";
 import prof_img from '../../images/pp1.png'
 import "../Drawer/styleDraw.css"
 import MapsUgcOutlinedIcon from '@mui/icons-material/MapsUgcOutlined';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+const Sidebar = ({mode,setMode }) => { 
 
-const Sidebar = ({mode,setMode}) => {
+  const [userData, setUserData] = useState(null);
+
+ 
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userId = JSON.parse(localStorage.getItem('users')).uid;
+        const response = await fetch(`http://localhost:8080/users/${userId}`);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        setUserData(data);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
   return (
     <Box  flex={2} p={2} sx={{ margin: "25px",
     display: { xs: "none", sm: "block" } }}>
@@ -32,7 +55,7 @@ const Sidebar = ({mode,setMode}) => {
               <Grid container className='drawer_box'>
            {/* <Grid item xs={1}></Grid> */}
                 <Grid item xs={1} > <img className="prof_img" src={prof_img}/></Grid>
-                <Grid item xs={6} sx={{marginLeft:6}}><span className='text'> <span className='userName'>Asadov Ibrat</span></span></Grid>
+                <Grid item xs={6} sx={{marginLeft:6}}><span className='text'> <span className='userName'>{userData ? userData.userName : 'Loading...'}</span></span></Grid>
                 <Grid item xs={1}></Grid>
                 </Grid></div>
         
@@ -75,7 +98,7 @@ const Sidebar = ({mode,setMode}) => {
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
-            <ListItemButton component="a" href="/account-user">
+            <ListItemButton  component={Link} to="/account-user" state={{dataUser:userData}}>
               <ListItemIcon>
                 <Person />
               </ListItemIcon>

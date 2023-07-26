@@ -2,7 +2,7 @@ import { Box, Stack, Skeleton } from "@mui/material";
 import React, { useState } from "react";
 import Post from "./Post";
 import StatusBar from "../StatusBar/StatusBar";
-import MainPage from "../MainPage/MainPage";
+import MainPageAccount from "../MainPage/MainPageAccount";
 import Account from "../Account/account";
 import Statusa from "../Account/statusa"
 
@@ -27,13 +27,10 @@ const Feed = () => {
         <>
    
         <StatusBar />
-        <MainPage />
+        <MainPageAccount />
           <Post />
           <Post />
-          <Post />
-          <Post />
-          <Post />
-          <Post />
+  
         </>
       )}
     </Box>

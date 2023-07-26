@@ -19,9 +19,9 @@ function App(props) {
     },
   });
 
-  // if(dataUser.userId==authUserID){
-  //   return(<Account/>)
-  //  }
+  if(dataUser.userId==authUserID){
+    return(<Account/>)
+   }
   return (
     <ThemeProvider theme={darkTheme}>
       <Box bgcolor={"#f9fafb"} color={"text.primary"}>
