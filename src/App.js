@@ -11,7 +11,7 @@
  import Demojs from './companents/Account/demo'
 import Footure1 from './companents/Media/footerBar';
 import  AccountUsersD from './companents/Users/AccountUsersD';
-import App1 from './companents/search/App';
+import CreatPost from './companents/MainPage/creatPost';
 
  function App() {
    return (
@@ -24,7 +24,7 @@ import App1 from './companents/search/App';
          <Route path="/account-users" element={<AccountUsers />} />
          <Route path="/" element={<Demojs/>}/>
          <Route path="/account-user" element={<AccountUsersD/>}/>
-         <Route path="/d1" element={<Account/>}/>
+         <Route path="/creat-post" element={<CreatPost/>}/>
       
        </Routes>
      </Router>
