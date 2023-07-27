@@ -19,7 +19,7 @@ class MainPage extends Component {
             postArray:[],
             progressBar: "",
             open: false, 
-            locationPath: "",
+            location: "",
             text: "",
             imageProgressBar: 0,
             otherProgressBar: 0,
@@ -52,10 +52,7 @@ class MainPage extends Component {
       handleClose = () => {
         this.setState({ open: false });
       };
-    handleLocationPathChange = (event) => {
-        this.setState({ locationPath: event.target.value });
-    }
-
+ 
     handleTextChange = (event) => {
         this.setState({ text: event.target.value });
     }
@@ -169,9 +166,9 @@ class MainPage extends Component {
         const imageFile = event.target.elements.imageFile.files[0];
         const otherFile = event.target.elements.otherFile.files[0];
         const text = event.target.elements.text.value;
-        const location = event.target.elements.locationPath;
+        const location = event.target.elements.location.value;
     
-        if (!imageFile || !otherFile || !text.trim()) {
+        if (!imageFile || !otherFile || !text.trim() ) {
           console.log("Please select all files and enter the text.");
           return;
         }
