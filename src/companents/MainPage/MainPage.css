@@ -21,3 +21,14 @@
     text-align: center;
     margin-left: -25px;
 }
+
+.uploadButtonContainer {
+   
+    margin-top: 20px;
+  }
+  
+  .uploadButton { 
+    display: flex;
+    justify-content: flex-end;
+    margin-left: 140px;
+  }

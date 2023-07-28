@@ -1,3 +1,4 @@
+import TextField from '@mui/material/TextField';
 import React, { Component } from 'react';
 import "./MainPage.css";
 import uploadImage from "../../images/upload.png";
@@ -9,9 +10,26 @@ import PostUser from "../Post/PostUser"
 import Button from '@mui/material/Button';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import {  Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, List, ListItem, ListItemText } from '@material-ui/core';
-import { Grid } from "@mui/material";
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import AttachFileIcon from '@mui/icons-material/AttachFile';
+import { Favorite, FavoriteBorder, MoreVert, Share } from "@mui/icons-material";
+import {
+  Avatar,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  CardMedia,
+  Checkbox,
+  IconButton,
+  Typography,
+} from "@mui/material";
+import Input from '@mui/material/Input';
+import DownloadForOfflineIcon from '@mui/icons-material/DownloadForOffline';
 const userAuth=JSON.parse(localStorage.getItem('users')).uid
-
+const ariaLabel = { 'aria-label': 'description' };
+const iconStyle = {  display: 'flex', alignItems: 'center', justifyContent: 'center'  };
+const iconSize ={ fontSize: 50}
 class MainPage extends Component {
     constructor(props) {
         super(props);
@@ -23,7 +41,8 @@ class MainPage extends Component {
             text: "",
             imageProgressBar: 0,
             otherProgressBar: 0,
-        
+            uploading: false,
+            uploadedImage: null,
          }
     }
 
@@ -56,56 +75,17 @@ class MainPage extends Component {
     handleTextChange = (event) => {
         this.setState({ text: event.target.value });
     }
-    // upload=(event)=>{
-    //     let image=event.target.files[0];
-    //     const thisContext=this;
-    //     if(image == null || image == undefined)
-    //         return;
-
-    //     const storage = getStorage();
-    //     const storageRef = ref(storage, image.name);
-    //     const uploadTask = uploadBytesResumable(storageRef, image);
-    // //    const uploadTask = storage.ref("images").child(image.name).put(image);
-    //     uploadTask.on(
-    //       "state_changed",
-    //       function (snapshot) {
-    //         var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-    //         thisContext.setState({progressBar: progress});
-    //       },
-    //       function (error) {
-    //       },
-    //       function () {
-    //         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-    //             console.log('File available at', downloadURL);
-              
-    //             let payload = {
-    //                 "postId": Math.floor(Math.random()*100000).toString(),
-    //                 "userId": JSON.parse(localStorage.getItem('users')).uid,
-    //                 "postPath": downloadURL,
-    //                 "timeStamp": new Date().getTime(),
-    //                 "likeCount": 0
-    //             }
-    
-    //             const requestOptions ={
-    //                 method: "POST",
-    //                 headers: { 'Content-Type': 'application/json' },
-    //                 body : JSON.stringify(payload),
-    //             }
-    
-    //             fetch("http://localhost:8080/post",requestOptions)
-    //             .then(response => response.json())
-    //             .then(data => {
-    //                 console.log(data);
-    //                 thisContext.getPost();
-    //             })
-    //             .catch(error =>{
-    
-    //             })
-                
-    //         })
-    //         }
-    //     );
-    // }
+    handleImageChange = (event) => {
+      const imageFile = event.target.files[0];
+      if (!imageFile) return;
+      const reader = new FileReader();
+  
+      reader.onloadend = () => {
+        this.setState({ uploadedImage: reader.result });
+      };
+  
+      reader.readAsDataURL(imageFile);
+    };
 
     uploadImage = (imageFile) => {
         const storage = getStorage();
@@ -220,19 +200,8 @@ class MainPage extends Component {
         console.log();
         return ( 
             <div>
-                {/* <div className="mainpage__container">  
-                    <div className="mainpage__divider"></div>
-                    <div className="fileupload">
-                        <label for="file-upload" >
-                            <img className="mainpage__uploadicon" src={uploadImage} />
-                        </label>
-                         <input onChange={this.upload} id="file-upload" type="file"/>
-                     </div>
-                    <div className="mainpage__divider"></div>   
-                </div> */}
-                <LinearProgress variant="buffer" value={this.state.progressBar} valueBuffer={this.state.progressBar} />
-                <div className="upload_text">{this.state.progressBar}</div>
-                <div> This is now data :  {this.state.timeStamp}</div>
+    
+       
 
                 <Button onClick={this.handleOpen} variant="contained" endIcon={<AddBoxIcon />} sx={{borderRadius:"15px",width:" 115px", height: "40px"}}>Creat</Button>
   
@@ -241,18 +210,114 @@ class MainPage extends Component {
                 <Dialog open={this.state.open} onClose={this.handleClose} maxWidth="xs" fullWidth>
                    <DialogTitle>Followings</DialogTitle>
                    <DialogContent>
-          <DialogContentText>
-            Here is a list of your followings:
-          </DialogContentText>
+        
+          
 
           <form onSubmit={this.handleSubmit}>
+            <Card sx={{ marginTop: 5 }}>
+           <CardHeader
+             avatar={
+          <Avatar sx={{ bgcolor: "red" }} aria-label="recipe">
+            R
+          </Avatar>
+        }
+        action={
+          <IconButton aria-label="settings">
+            <MoreVert />
+          </IconButton>
+        }
+        title="John Doe"
+        subheader={ <div>
+          <Input name="location"  placeholder="Enter location..." inputProps={ariaLabel} />
+        </div> }
+           />
+             <div>
+          {this.state.uploadedImage ? (
+            <CardMedia
+              component="img"
+              height="20%"
+              src={this.state.uploadedImage}
+              alt="Uploaded Image"
+            />
+          ) : (
+            <>
+               <div>
+          {this.state.uploading ? (
+            <LinearProgress variant="determinate" value={this.state.imageProgressBar} />
+          ) : (
+            <>
+              <input type="file" onChange={this.handleImageChange} name="imageFile" style={{ display: 'none' }} id="imageFileInput" />
+              <label style={iconStyle} htmlFor="imageFileInput">
+                <IconButton   component="span" color="primary" aria-label="upload file" title="Upload Other File">
+                  <CloudUploadIcon style={iconSize}/>
+                </IconButton>
+              </label>
+            </>
+          )}
+        </div>
+              {/* <input type="file" name="imageFile" onChange={this.handleImageChange} />
+              <progress value={this.state.imageProgressBar} max="100" /> */}
+            </>
+          )}
+        </div>
+            <CardContent>
+        <Typography variant="body2" color="text.secondary">
+        <TextField
+          id="standard-multiline-flexible"
+          label="Multiline"
+          multiline
+          maxRows={4}
+          variant="standard"
+          style={ {width: '350px'} }
+ 
+        />
+        </Typography>
+            </CardContent>
+            <CardActions disableSpacing>
+        <IconButton aria-label="add to favorites">
+          <Checkbox
+            icon={<FavoriteBorder />}
+            checkedIcon={<Favorite sx={{ color: "red" }} />}
+          />
+        </IconButton>
         <div>
+          {this.state.uploading ? (
+            <LinearProgress variant="determinate" value={this.state.otherProgressBar} />
+          ) : (
+            <>
+              <input type="file" name="otherFile" style={{ display: 'none' }} id="otherFileInput" />
+              <label htmlFor="otherFileInput">
+                <IconButton component="span" color="primary" aria-label="upload file" title="Upload Other File">
+                  <AttachFileIcon />
+                </IconButton>
+              </label>
+            </>
+          )}
+        </div>
+        <div className="uploadButton">
+          <Button type="submit" variant="contained" endIcon={<DownloadForOfflineIcon />}>Upload</Button>
+        </div>
+            </CardActions>
+             </Card>
+       
+        {/* <div>
+    
           <input type="file" name="imageFile" />
           <progress value={this.state.imageProgressBar} max="100" />
         </div>
         <div>
-          <input type="file" name="otherFile" />
-          <progress value={this.state.otherProgressBar} max="100" />
+          {this.state.uploading ? (
+            <LinearProgress variant="determinate" value={this.state.otherProgressBar} />
+          ) : (
+            <>
+              <input type="file" name="otherFile" style={{ display: 'none' }} id="otherFileInput" />
+              <label htmlFor="otherFileInput">
+                <IconButton component="span" color="primary" aria-label="upload file" title="Upload Other File">
+                  <AttachFileIcon />
+                </IconButton>
+              </label>
+            </>
+          )}
         </div>
         <div>
           <input type="text" name="text" placeholder="Enter text..." />
@@ -261,11 +326,9 @@ class MainPage extends Component {
        <div>
           
             <input type="text" name="location"  placeholder="Enter text..." />
-       </div>
+       </div> */}
 
-        <div>
-          <button type="submit">Upload</button>
-        </div>
+      
 
  
       </form>
