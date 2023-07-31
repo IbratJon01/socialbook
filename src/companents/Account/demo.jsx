@@ -10,6 +10,7 @@ import Grid  from '@material-ui/core/Grid';
 function App() {
   const [mode, setMode] = useState("light");
   const [userData, setUserData] = useState(null);
+  const userName= userData ? userData.userName : 'Loading...'
   const darkTheme = createTheme({
     palette: {
       mode: mode,
@@ -35,12 +36,12 @@ function App() {
     fetchUserData();
   }, []);
 
-  console.log(userData);
+
 
   return (
     <ThemeProvider theme={darkTheme}>
       <Box bgcolor={"#f9fafb"} color={"text.primary"}>
-      <Navbar/>
+      <Navbar userName={userName} />
 
         <Stack direction="row" spacing={2} justifyContent="space-between">
         <Sidebar setMode={setMode} mode={mode} />

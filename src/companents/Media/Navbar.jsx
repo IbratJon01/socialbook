@@ -20,6 +20,7 @@ import IconButton from '@mui/material/IconButton';
 import App from "../search/App"
 import {  Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions} from '@material-ui/core';
 import { blue } from "@mui/material/colors";
+import CreatPost from "../MainPage/creatPost"
 
 const StyledToolbar = styled(Toolbar)({
   display: "flex",
@@ -53,18 +54,18 @@ const UserBox = styled(Box)(({ theme }) => ({
 }));
 
 
-const Navbar = () => {
+const Navbar = (userName) => {
   const [open, setOpen] = useState(false);
   
   const [openSearch, setOpenSearch]= useState(false);
-  
+
   const handleOpen = () => {
     setOpenSearch(true);
    };
 
     const handleCloseSearch = () => {
       setOpenSearch();
-      console.log(open);
+
     };
 
   return (
@@ -91,8 +92,7 @@ const Navbar = () => {
              </ListItemButton>
           
           </Search>
-        <Button variant="contained" endIcon={<AddBoxIcon />} sx={{borderRadius:"15px",width:" 115px",
-    height: "40px"}}>Creat</Button>
+          <CreatPost userName={userName}/>
        
           <Avatar
             sx={{width: "40px", height: "40px" , borderRadius:"15px" }}

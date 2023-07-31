@@ -16,12 +16,12 @@ export default function LongMenu({ deletePost }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [isPostDeleted, setPostDeleted] = React.useState(false);
 
-  React.useEffect(() => {
-    if (isPostDeleted) {
-      // Refresh the page or perform any necessary actions
-      window.location.reload();
-    }
-  }, [isPostDeleted]);
+  // React.useEffect(() => {
+  //   if (isPostDeleted) {
+  //     // Refresh the page or perform any necessary actions
+  //     window.location.reload();
+  //   }
+  // }, [isPostDeleted]);
 
   const open = Boolean(anchorEl);
   const handleClick = (event) => {

@@ -78,113 +78,118 @@ class MainPage extends Component {
   
       reader.readAsDataURL(imageFile);
     };
-
+    // Rasm va boshqa fayllarni yuklash uchun Firebase storage'ni ishlatish funktsiyasi
     uploadImage = (imageFile) => {
-        const storage = getStorage();
-        const imageStorageRef = ref(storage, imageFile.name);
-        const imageUploadTask = uploadBytesResumable(imageStorageRef, imageFile);
-    
-        return new Promise((resolve, reject) => {
-          imageUploadTask.on(
-            "state_changed",
-            (snapshot) => {
-              var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-              this.setState({ imageProgressBar: progress });
-            },
-            (error) => {
-              reject(error);
-            },
-            async () => {
-              try {
-                const downloadURL = await getDownloadURL(imageUploadTask.snapshot.ref);
-                resolve(downloadURL);
-              } catch (error) {
-                reject(error);
-              }
-            }
-          );
-        });
-      };
-    
-    uploadOtherFile = (otherFile) => {
-        const storage = getStorage();
-        const otherStorageRef = ref(storage, otherFile.name);
-        const otherUploadTask = uploadBytesResumable(otherStorageRef, otherFile);
-    
-        return new Promise((resolve, reject) => {
-          otherUploadTask.on(
-            "state_changed",
-            (snapshot) => {
-              var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-              this.setState({ otherProgressBar: progress });
-            },
-            (error) => {
-              reject(error);
-            },
-            async () => {
-              try {
-                const downloadURL = await getDownloadURL(otherUploadTask.snapshot.ref);
-                resolve(downloadURL);
-              } catch (error) {
-                reject(error);
-              }
-            }
-          );
-        });
+    const storage = getStorage();
+    const imageStorageRef = ref(storage, imageFile.name);
+    const imageUploadTask = uploadBytesResumable(imageStorageRef, imageFile);
+  
+    return new Promise((resolve, reject) => {
+      imageUploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          this.setState({ imageProgressBar: progress });
+        },
+        (error) => {
+          reject(error);
+        },
+        async () => {
+          try {
+            const downloadURL = await getDownloadURL(imageUploadTask.snapshot.ref);
+            resolve(downloadURL);
+          } catch (error) {
+            reject(error);
+          }
+        }
+      );
+    });
     };
-
-    handleSubmit = async (event) => {
-        event.preventDefault();
-        const imageFile = event.target.elements.imageFile.files[0];
-        const otherFile = event.target.elements.otherFile.files[0];
-        const text = event.target.elements.text.value;
-        const location = event.target.elements.location.value;
-    
-        if (!imageFile || !otherFile || !text.trim() ) {
-          console.log("Please select all files and enter the text.");
-          return;
+  
+  // Boshqa faylni yuklash uchun Firebase storage'ni ishlatish funktsiyasi
+    uploadOtherFile = (otherFile) => {
+    const storage = getStorage();
+    const otherStorageRef = ref(storage, otherFile.name);
+    const otherUploadTask = uploadBytesResumable(otherStorageRef, otherFile);
+  
+    return new Promise((resolve, reject) => {
+      otherUploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          this.setState({ otherProgressBar: progress });
+        },
+        (error) => {
+          reject(error);
+        },
+        async () => {
+          try {
+            const downloadURL = await getDownloadURL(otherUploadTask.snapshot.ref);
+            resolve(downloadURL);
+          } catch (error) {
+            reject(error);
+          }
         }
-    
-        try {
-          const imagePath = await this.uploadImage(imageFile);
-          const otherFilePath = await this.uploadOtherFile(otherFile);
-    
-          const db = getFirestore();
-          const postsRef = collection(db, "posts");
-          const now = new Date()
-          const payload = {
-            postId: Math.floor(Math.random() * 100000).toString(),
-            userId: JSON.parse(localStorage.getItem("users")).uid,
-            postPath: imagePath,
-            file: otherFilePath,
-            information: text,
-            location:location,
-            localDate:now,
-            userName:this.props.userName.userName,
-            likeCount: 0,
-
-          };
-    
-          const requestOptions = {
-            method: "POST",
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload),
-          };
-    
-          const response = await fetch("http://localhost:8080/post", requestOptions);
-          const data = await response.json();
-          console.log("Post added successfully!", data);
-    
-        //   await addDoc(postsRef, payload);
-        //   console.log("Post added successfully!");
-    
-          // Clear the input fields and progress bars
-          event.target.reset();
-          this.setState({ imageProgressBar: 0, otherProgressBar: 0 });
-        } catch (error) {
-          console.error("Error occurred while uploading files:", error);
-        }
+      );
+    });
+    };
+  
+  // Formani yuborish uchun asosiy funktsiya
+  handleSubmit = async (event) => {
+    event.preventDefault();
+    const imageFile = event.target.elements.imageFile.files[0];
+    const otherFile = event.target.elements.otherFile.files[0];
+    const text = event.target.elements.text.value;
+    const location = event.target.elements.location.value;
+  
+    // Tekshirish: Hujjatlar va matnni to'ldirish
+    if (!imageFile || !otherFile || !text.trim()) {
+      console.log("Iltimos, hamma fayllarni tanlang va matnni kiriting.");
+      return;
+    }
+  
+    try {
+      const imagePath = await this.uploadImage(imageFile);
+      const otherFilePath = await this.uploadOtherFile(otherFile);
+  
+      const db = getFirestore();
+      const postsRef = collection(db, "posts");
+      const now = new Date();
+      const payload = {
+        postId: Math.floor(Math.random() * 100000).toString(),
+        userId: JSON.parse(localStorage.getItem("users")).uid,
+        postPath: imagePath,
+        file: otherFilePath,
+        information: text,
+        location: location,
+        localDate: now,
+      
+        likeCount: 0,
       };
+  
+      // Hujjatni yangilash uchun PUT HTTP so'rovi uchun URL
+      const updateUrl = `http://localhost:8080/post/${payload.postId}`;
+  
+      const requestOptions = {
+        method: "PUT", // PUT HTTP so'rovini ishlatish
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      };
+  
+      const response = await fetch(updateUrl, requestOptions);
+      const data = await response.json();
+      console.log("Post muvaffaqiyatli yangilandi!", data);
+  
+      // Kiritish maydonlarini va progress barlarni tozalash
+      event.target.reset();
+      this.setState({ imageProgressBar: 0, otherProgressBar: 0 });
+    } catch (error) {
+      console.error("Xato yuz berdi: Fayllar yuklanishida xato:", error);
+    }
+  };
+  
+
+
   
       
       componentDidMount() {

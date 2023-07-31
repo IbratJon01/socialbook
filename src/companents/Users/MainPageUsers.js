@@ -23,6 +23,7 @@ class MainPageUsers extends Component {
     }
  
 
+
     getPost=()=>{ 
 
         const thisContext=this;
@@ -95,31 +96,9 @@ class MainPageUsers extends Component {
         console.log();
         return ( 
             <div>
-                <div className="mainpage__container">  
-                    <div className="mainpage__divider"></div>
-                    <div className="fileupload">
-                        <label for="file-upload" >
-                            <img className="mainpage__uploadicon" src={uploadImage} />
-                        </label>
-                         <input onChange={this.upload} id="file-upload" type="file"/>
-                     </div>
-                    <div className="mainpage__divider"></div>   
-                </div>
-                <LinearProgress variant="buffer" value={this.state.progressBar} valueBuffer={this.state.progressBar} />
-                <div className="upload_text">{this.state.progressBar}</div>
-                <div> This is now data :  {this.state.timeStamp}</div>
-                {/* {
+                {
                     this.state.postArray.map((item,index)=>(
-                        <Post id1={item.id} id={item.postId} userName={item.userName} postImage={item.postPath} likes={item.likeCount} />
-                      
-                        ))
-                } */}
-
-{
-    
-                    this.state.postArray.map((item,index)=>(
-                        <PostUser id1={item.id} id={item.postId} userName={item.userName} postImage={item.postPath} likes={item.likeCount} time={item.timeStamp} />
-                        
+                        <PostUser id1={item.id} id={item.postId} userName={item.userName} postImage={item.postPath} likes={item.likeCount} time={item.timeStamp} postData={item} />
                         ))
                 }
                      

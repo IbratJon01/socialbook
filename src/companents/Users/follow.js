@@ -51,7 +51,6 @@ const UserStatusList = ({ userId  }) => {
 
 
 
-  const followings = [{userName:'Gaybul_ov',name:"Gaybulla Negmatov"},{userName:'Alisher_ev',name:"Alisher Fayzullayev'"} ,{userName:'Nodir_007',name:'Nodir Rahimov'} ];
   //Users GET data
   useEffect(() => {
     const fetchUser = async () => {
@@ -104,25 +103,9 @@ const UserStatusList = ({ userId  }) => {
        
    
       </div>
-{/* 
-      <Dialog open={openSetting} onClose={handleCloseSetting} maxWidth="xs" fullWidth>
-        <DialogTitle>Followings</DialogTitle>
-        <DialogContent>
-         
-        
-        <List>
-         
-        </List>
 
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseSetting} color="primary">
-            Close
-          </Button>
-        </DialogActions>
-      </Dialog> */}
     
-      {/* <div className='profel_img2'><Avatar className="img__status" src={prof_img}/></div> */}
+
        <Grid container >
       
            <Grid  item xs={3} ><div className='profel_img2'><Avatar className="img__status" src={prof_img}/></div></Grid>

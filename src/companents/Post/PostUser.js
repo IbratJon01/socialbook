@@ -16,6 +16,9 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import * as React from 'react';
 import postimage from '../../images/ToasdUsf5.webp'
 import LongMenu from '../Account/LongMenu';
+import AttachFileIcon from '@mui/icons-material/AttachFile';
+import { Document, Page, pdfjs } from 'react-pdf';
+import { getFirestore, collection, doc, deleteDoc } from "firebase/firestore";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -34,51 +37,100 @@ export default function RecipeReviewCard(props) {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-  const deletePost = () => {
-    const requestOptions = {
-      method: 'DELETE',
+
+    const handleDeleteClick = () => {
+      const postId =props; // postdan ma'lumotlarni olish uchun post.id ni olib foydalanamiz
+      console.log(postId.id1);
+      handleDelete(postId);
     };
 
-    fetch(`http://localhost:8080/post/delete/${props.id1}`, requestOptions)
-      .then(response =>response.text())
-      .then(data => {
-        
-        // Handle the successful deletion
-      })
-      .catch(error => {
-        // Handle any errors
-        console.error(error);
-      });
+  const deletePostFromFirestore = async (postId) => {
+    try {
+      const db = getFirestore();
+      const postsRef = collection(db, "posts");
+      const postDocRef = doc(postsRef, postId.postData.file);
+  
+      await deleteDoc(postDocRef);
+      console.log("Post muvaffaqiyatli o'chirildi Firebase Firestore dan!");
+    } catch (error) {
+      console.error("Xato yuz berdi: Firebase Firestore dan o'chirishda xato:", error);
+    }
+  };
+  
+  const deletePostFromServer = async (postId) => {
+    try {
+      const deleteUrl = `http://localhost:8080/post/delete/${postId.id1}`;
+  
+      const requestOptions = {
+        method: "DELETE",
+        headers: { 'Content-Type': 'application/json' },
+      };
+  
+      const response = await fetch(deleteUrl, requestOptions);
+      const data = await response.json();
+      console.log("Post muvaffaqiyatli o'chirildi serverdan!", data);
+    } catch (error) {
+      console.error("Xato yuz berdi: Serverdan o'chirishda xato:", error);
+    }
+  };
+  
+  const handleDelete = async (postId) => {
+    try {
+      await deletePostFromFirestore(postId);
+      await deletePostFromServer(postId);
+  
+      console.log("Post muvaffaqiyatli o'chirildi Firebase Firestore va serverdan!");
+    } catch (error) {
+      console.error("Xato yuz berdi: Postni o'chirishda xato:", error);
+    }
   };
 
+  // const deletePost = () => {
+  //   const requestOptions = {
+  //     method: 'DELETE',
+  //   };
+
+  //   fetch(`http://localhost:8080/post/delete/${props.id1}`, requestOptions)
+  //     .then(response =>response.text())
+  //     .then(data => {
+        
+  //       // Handle the successful deletion
+  //     })
+  //     .catch(error => {
+  //       // Handle any errors
+  //       console.error(error);
+  //     });
+  // };
+
+  pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
+  const pdfUrl=props.postData.file
 
   return (
   
-    <Card>
+    <Card style={{marginTop:10}}>
       <CardHeader 
         avatar={
           <Avatar className="post__image" src="" />
         }
         action={
           <IconButton aria-label="settings">
-              <LongMenu deletePost={deletePost} />
+              <LongMenu deletePost={handleDeleteClick} />
           </IconButton>
         }
-        title={props.userName}
-        subheader={<div>Hi:{props.time}</div>}
+        title={props.postData.userName}
+        subheader={<div>Hi:{props.postData.localDate}</div>}
       />
       <CardMedia
         component="img"
         height="auto"
-        image={props.postImage}
+        image={props.postData.postPath}
         alt="Paella dish"
  
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the mussels,
-          if you like.
+           {props.postData.information}
+          
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
@@ -88,6 +140,16 @@ export default function RecipeReviewCard(props) {
         <IconButton aria-label="share">
           <ShareIcon />
         </IconButton>
+        <IconButton
+        component="span"
+        color="primary"
+        aria-label="open pdf"
+        onClick={() => {
+          window.open(pdfUrl, "_blank");
+        }}
+      >
+        <AttachFileIcon />
+      </IconButton>
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
