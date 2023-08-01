@@ -5,7 +5,7 @@ import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/
 import LinearProgress from '@mui/material/LinearProgress';
 import PostUser from "../Post/PostUser"
 
-const userAuth=JSON.parse(localStorage.getItem('users')).uid
+
 
 class MainPage extends Component {
     constructor(props) {
@@ -24,6 +24,8 @@ class MainPage extends Component {
 
     getPost=()=>{ 
         const thisContext=this;
+        const userAuth=this.props.userId.userId;
+        // console.log(userAuth);
         fetch(`http://localhost:8080/post/${userAuth}`)
             .then(response => response.json())
             .then(data => {
@@ -86,10 +88,10 @@ class MainPage extends Component {
     }
 
     render() { 
-     
+            //    console.log(this.state.postArray);
         return ( 
             <div>
-          
+
 
                      {
     

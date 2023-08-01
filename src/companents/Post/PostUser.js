@@ -8,18 +8,14 @@ import Collapse from '@mui/material/Collapse';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import { red } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import * as React from 'react';
-import postimage from '../../images/ToasdUsf5.webp'
 import LongMenu from '../Account/LongMenu';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
-import { Document, Page, pdfjs } from 'react-pdf';
-import { getFirestore, collection, doc, deleteDoc } from "firebase/firestore";
-
+import { pdfjs } from 'react-pdf';
+import { getStorage, deleteObject, ref } from "firebase/storage";
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -34,9 +30,11 @@ const ExpandMore = styled((props) => {
 export default function RecipeReviewCard(props) {
   const [expanded, setExpanded] = React.useState(false);
 
-  const handleExpandClick = () => {
+  console.log(props.postData);
+
+   const handleExpandClick = () => {
     setExpanded(!expanded);
-  };
+   };
 
     const handleDeleteClick = () => {
       const postId =props; // postdan ma'lumotlarni olish uchun post.id ni olib foydalanamiz
@@ -44,20 +42,34 @@ export default function RecipeReviewCard(props) {
       handleDelete(postId);
     };
 
-  const deletePostFromFirestore = async (postId) => {
-    try {
-      const db = getFirestore();
-      const postsRef = collection(db, "posts");
-      const postDocRef = doc(postsRef, postId.postData.file);
+    const handleDeleteFribase = async (postId) => {
+   
+        try {
+          console.log(postId.postData.file);
+       
+          const storage = getStorage(); // getStorage funksiyasini chaqiring, unga oid Storage o'rnating
+          const storageRef = ref(storage,  postId.postData.file);
+          await deleteObject(storageRef);
+        } catch (error) {
+          console.log(error);
+        }
+      
+    };
+    const handleDeleteFriImage = async (postId) => {
+      if (window.confirm("Haqiqatan ham ushbu maqolani o'chirishga ishonchingiz komilmi?")) {
+        try {
+          console.log(postId.postData.file);
+       
+          const storage = getStorage(); // getStorage funksiyasini chaqiring, unga oid Storage o'rnating
+          const storageRef = ref(storage,  postId.postData.postPath );
+          await deleteObject(storageRef);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    };
   
-      await deleteDoc(postDocRef);
-      console.log("Post muvaffaqiyatli o'chirildi Firebase Firestore dan!");
-    } catch (error) {
-      console.error("Xato yuz berdi: Firebase Firestore dan o'chirishda xato:", error);
-    }
-  };
-  
-  const deletePostFromServer = async (postId) => {
+    const deletePostFromServer = async (postId) => {
     try {
       const deleteUrl = `http://localhost:8080/post/delete/${postId.id1}`;
   
@@ -72,35 +84,21 @@ export default function RecipeReviewCard(props) {
     } catch (error) {
       console.error("Xato yuz berdi: Serverdan o'chirishda xato:", error);
     }
-  };
+    };
   
-  const handleDelete = async (postId) => {
+    const handleDelete = async (postId) => {
     try {
-      await deletePostFromFirestore(postId);
+      // await deletePostFromFirestore(postId);
       await deletePostFromServer(postId);
-  
+      await  handleDeleteFribase(postId);
+      await handleDeleteFriImage(postId);
       console.log("Post muvaffaqiyatli o'chirildi Firebase Firestore va serverdan!");
     } catch (error) {
       console.error("Xato yuz berdi: Postni o'chirishda xato:", error);
     }
-  };
+    };
 
-  // const deletePost = () => {
-  //   const requestOptions = {
-  //     method: 'DELETE',
-  //   };
 
-  //   fetch(`http://localhost:8080/post/delete/${props.id1}`, requestOptions)
-  //     .then(response =>response.text())
-  //     .then(data => {
-        
-  //       // Handle the successful deletion
-  //     })
-  //     .catch(error => {
-  //       // Handle any errors
-  //       console.error(error);
-  //     });
-  // };
 
   pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
   const pdfUrl=props.postData.file
@@ -118,7 +116,7 @@ export default function RecipeReviewCard(props) {
           </IconButton>
         }
         title={props.postData.userName}
-        subheader={<div>Hi:{props.postData.localDate}</div>}
+        subheader={<div>Locations:{props.postData.localDate}</div>}
       />
       <CardMedia
         component="img"
@@ -150,6 +148,7 @@ export default function RecipeReviewCard(props) {
       >
         <AttachFileIcon />
       </IconButton>
+     
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}

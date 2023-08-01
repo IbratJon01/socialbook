@@ -11,6 +11,7 @@ import {
     Card,
 
   } from "@mui/material";
+
 const userAuth=JSON.parse(localStorage.getItem('users')).uid
 
 class StatusBar extends Component {
@@ -31,6 +32,8 @@ class StatusBar extends Component {
         fetch('http://localhost:8080/status')
             .then(response => response.json())
             .then(data => {
+                const userAuth=this.props.userId.userId.userId
+        
                 const filteredPosts = data.filter(post => post.userId === userAuth);
                 this.setState({ statusList: filteredPosts });
             });

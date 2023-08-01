@@ -3,10 +3,10 @@ import React, { useState } from "react";
 import Post from "./Post";
 import StatusBar from "../StatusBar/StatusBar";
 import MainPageAccount from "../MainPage/MainPageAccount";
-import Account from "../Account/account";
+
 import Statusa from "../Account/statusa"
 
-const Feed = () => {
+const Feed = (userId) => {
   const [loading, setLoading] = useState(true);
 
   setTimeout(() => {
@@ -26,8 +26,8 @@ const Feed = () => {
         
         <>
    
-        <StatusBar />
-        <MainPageAccount />
+        <StatusBar userId={userId}/>
+        <MainPageAccount userId={userId.userId}/>
           <Post />
           <Post />
   

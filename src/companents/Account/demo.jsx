@@ -6,8 +6,9 @@ import Navbar from "../Media/Navbar";
 import React, { useState, useEffect } from 'react';
 import FooterBar from "../Media/footerBar"
 import  StatusBar from "../StatusBar/StatusBar"
-import Grid  from '@material-ui/core/Grid';
-function App() {
+import Grid  from '@material-ui/core/Grid';  
+
+function App(userId) {
   const [mode, setMode] = useState("light");
   const [userData, setUserData] = useState(null);
   const userName= userData ? userData.userName : 'Loading...'
@@ -21,7 +22,7 @@ function App() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const userId = JSON.parse(localStorage.getItem('users')).uid;
+      
         const response = await fetch(`http://localhost:8080/users/${userId}`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -44,9 +45,9 @@ function App() {
       <Navbar userName={userName} />
 
         <Stack direction="row" spacing={2} justifyContent="space-between">
-        <Sidebar setMode={setMode} mode={mode} />
-        <Feed/>
-         <Rightbar /> {/* <StatusBar/> */}
+        <Sidebar userId={userId} setMode={setMode} mode={mode} />
+        <Feed userId={userId}/>
+         <Rightbar/> {/* <StatusBar/> */}
        
        
           

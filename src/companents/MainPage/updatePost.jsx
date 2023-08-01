@@ -154,6 +154,7 @@ class MainPage extends Component {
   
       const db = getFirestore();
       const postsRef = collection(db, "posts");
+      
       const now = new Date();
       const payload = {
         postId: Math.floor(Math.random() * 100000).toString(),
