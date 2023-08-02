@@ -11,8 +11,10 @@ import Account from "./Account"
 function App(props) {
   const location = useLocation();
   const dataUser = location.state?.dataUser;
+  
   const [mode, setMode] = useState("light");
-  const authUserID  = JSON.parse(localStorage.getItem('users')).uid
+  console.log(props.userId);
+  const authUserID  = props.userId
   const darkTheme = createTheme({
     palette: {
       mode: mode,
@@ -25,7 +27,7 @@ function App(props) {
   return (
     <ThemeProvider theme={darkTheme}>
       <Box bgcolor={"#f9fafb"} color={"text.primary"}>
-      <Navbar/>
+      <Navbar userId={authUserID}/>
 
         <Stack direction="row" spacing={2} justifyContent="space-between">
         <Sidebar setMode={setMode} mode={mode}/>

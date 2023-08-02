@@ -112,7 +112,7 @@ export default function RecipeReviewCard(props) {
         }
         action={
           <IconButton aria-label="settings">
-              <LongMenu deletePost={handleDeleteClick} />
+              <LongMenu deletePost={handleDeleteClick} postId={props.postData.postId} />
           </IconButton>
         }
         title={props.postData.userName}

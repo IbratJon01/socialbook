@@ -18,7 +18,7 @@ class SignIN extends Component {
           .then((userCredential) => {
             // Signed in 
             const user = userCredential.user;
-            localStorage.setItem("users",user.uid);
+            localStorage.setItem("users",JSON.stringify(user));
             window.location.reload();
             // ...
           })

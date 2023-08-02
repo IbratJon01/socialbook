@@ -41,8 +41,8 @@ class MainPage extends Component {
             open: false, 
             location: "",
             text: "",
+            name:"",
             imageProgressBar: 0,
-            otherProgressBar: 0,
             uploading: false,
             uploadedImage: null,
             inputValue: '',
@@ -105,44 +105,16 @@ class MainPage extends Component {
     });
     };
   
-  // Boshqa faylni yuklash uchun Firebase storage'ni ishlatish funktsiyasi
-    uploadOtherFile = (otherFile) => {
-    const storage = getStorage();
-    const otherStorageRef = ref(storage, otherFile.name);
-    const otherUploadTask = uploadBytesResumable(otherStorageRef, otherFile);
-  
-    return new Promise((resolve, reject) => {
-      otherUploadTask.on(
-        "state_changed",
-        (snapshot) => {
-          var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          this.setState({ otherProgressBar: progress });
-        },
-        (error) => {
-          reject(error);
-        },
-        async () => {
-          try {
-            const downloadURL = await getDownloadURL(otherUploadTask.snapshot.ref);
-            resolve(downloadURL);
-          } catch (error) {
-            reject(error);
-          }
-        }
-      );
-    });
-    };
-  
+
   // Formani yuborish uchun asosiy funktsiya
   handleSubmit = async (event) => {
     event.preventDefault();
     const imageFile = event.target.elements.imageFile.files[0];
-    const otherFile = event.target.elements.otherFile.files[0];
     const text = event.target.elements.text.value;
-    const location = event.target.elements.location.value;
-  
+    const userName = event.target.elements.location.value;
+    const name = event.target.elements.name.value;
     // Tekshirish: Hujjatlar va matnni to'ldirish
-    if (!imageFile || !otherFile || !text.trim()) {
+    if (!imageFile || !text.trim()) {
       console.log("Iltimos, hamma fayllarni tanlang va matnni kiriting.");
       return;
     }
@@ -157,9 +129,9 @@ class MainPage extends Component {
       const now = new Date();
       const payload = {
         postPath: imagePath,
-        file: otherFilePath,
-        information: text,
-        location: location,
+        bio: text,
+        userName: userName,
+        name:name,
 
       
    
@@ -176,11 +148,7 @@ class MainPage extends Component {
       };
   
       const response = await fetch(updateUrl, requestOptions);
-      // const data = await response.json();
-      // console.log("Post muvaffaqiyatli yangilandi!", data);
-      const responseData = await response.text(); // Read the response as text
-      console.log("Response Data:", responseData); // Log the response data
-      const data = JSON.parse(responseData); // Try parsing the response data as JSON
+      const data = await response.json();
       console.log("Post muvaffaqiyatli yangilandi!", data);
   
       // Kiritish maydonlarini va progress barlarni tozalash

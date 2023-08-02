@@ -21,8 +21,9 @@ const getUsersDataFromLocalStorage = () => {
   return null;
 };
 
-const usersData = getUsersDataFromLocalStorage();
 
+const usersData = getUsersDataFromLocalStorage();
+console.log(usersData);
  function App() {
    return (
      <div className="App">
@@ -37,7 +38,9 @@ const usersData = getUsersDataFromLocalStorage();
     usersData && usersData.uid ? <Demojs userId={usersData.uid}/> : <LoginPage />
   }
 />
-         <Route path="/account-user" element={<AccountUsersD/>}/>
+         <Route path="/account-user"   element={
+    usersData && usersData.uid ? <AccountUsersD userId={usersData.uid}/> : <LoginPage /> }
+    />
          <Route path="/creat-post" element={<CreatPost/>}/>
       
        </Routes>

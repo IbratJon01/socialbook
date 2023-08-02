@@ -5,7 +5,7 @@ import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/
 import LinearProgress from '@mui/material/LinearProgress';
 import PostUser from "../Post/PostUser"
 
-const userAuth=JSON.parse(localStorage.getItem('users')).uid
+
 
 class MainPageUsers extends Component {
     constructor(props) {

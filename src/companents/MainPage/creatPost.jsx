@@ -28,7 +28,7 @@ import Input from '@mui/material/Input';
 import DownloadForOfflineIcon from '@mui/icons-material/DownloadForOffline';
 import Autocomplete from '@mui/material/Autocomplete';
 import axios from 'axios';
-const userAuth=JSON.parse(localStorage.getItem('users')).uid
+
 const ariaLabel = { 'aria-label': 'description' };
 const iconStyle = {  display: 'flex', alignItems: 'center', justifyContent: 'center'  };
 const iconSize ={ fontSize: 50}

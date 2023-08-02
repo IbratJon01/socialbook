@@ -6,7 +6,6 @@ import uploadimage from "../../images/statusadd.png";
 import { storage, auth } from "../firebase";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import Statusa from "../Account/statusa";
-const userAuth=JSON.parse(localStorage.getItem('users')).uid
 
 class StatusBarUsers extends Component {
     constructor(props) {

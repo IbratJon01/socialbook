@@ -12,7 +12,7 @@ import {
 
   } from "@mui/material";
 
-const userAuth=JSON.parse(localStorage.getItem('users')).uid
+
 
 class StatusBar extends Component {
     constructor(props) {

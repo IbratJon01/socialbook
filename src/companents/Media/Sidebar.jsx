@@ -23,7 +23,7 @@ import "../Drawer/styleDraw.css"
 import MapsUgcOutlinedIcon from '@mui/icons-material/MapsUgcOutlined';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-const Sidebar = ({mode,setMode }) => { 
+const Sidebar = ({mode,setMode ,userId}) => { 
 
   const [userData, setUserData] = useState(null);
 

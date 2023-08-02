@@ -23,7 +23,7 @@ function App(userId) {
     const fetchUserData = async () => {
       try {
       
-        const response = await fetch(`http://localhost:8080/users/${userId}`);
+        const response = await fetch(`http://localhost:8080/users/${userId.userId}`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -45,7 +45,7 @@ function App(userId) {
       <Navbar userName={userName} />
 
         <Stack direction="row" spacing={2} justifyContent="space-between">
-        <Sidebar userId={userId} setMode={setMode} mode={mode} />
+        <Sidebar  setMode={setMode} mode={mode} />
         <Feed userId={userId}/>
          <Rightbar/> {/* <StatusBar/> */}
        
