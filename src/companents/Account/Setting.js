@@ -10,6 +10,11 @@ import FileCopyIcon from '@mui/icons-material/FileCopy';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import SettingsIcon from '@mui/icons-material/Settings'; 
+import EditUser from '../MainPage/editUser'
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
 const StyledMenu = styled((props) => (
   <Menu
     elevation={0}
@@ -53,6 +58,8 @@ const StyledMenu = styled((props) => (
 
 export default function CustomizedMenus() {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [isEditMode, setEditMode] = React.useState(false);
+
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -60,7 +67,13 @@ export default function CustomizedMenus() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+  const handleEdit = () => {
+    setEditMode(true);
+    handleClose();
+  };
+  const handleDialogClose = () => {
+    setEditMode(false);
+  };
   return (
     <div>
       <Button
@@ -85,9 +98,11 @@ export default function CustomizedMenus() {
         open={open}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose} disableRipple>
+        <MenuItem onClick={handleClose && handleEdit} disableRipple>
           <EditIcon />
           Edit
+       
+ 
         </MenuItem>
         <MenuItem onClick={handleClose} disableRipple>
           <FileCopyIcon />
@@ -103,6 +118,21 @@ export default function CustomizedMenus() {
           More
         </MenuItem>
       </StyledMenu>
+
+      <Dialog open={isEditMode} maxWidth="sx" onClose={handleDialogClose}>
+        <DialogTitle>Edit Post</DialogTitle>
+        <DialogContent>
+        <EditUser/>
+        
+
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDialogClose}>Cancel</Button>
+          <Button onClick={handleDialogClose} color="primary">
+            Save Changes
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }

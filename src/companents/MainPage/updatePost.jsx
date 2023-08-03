@@ -178,10 +178,15 @@ class MainPage extends Component {
       const response = await fetch(updateUrl, requestOptions);
       // const data = await response.json();
       // console.log("Post muvaffaqiyatli yangilandi!", data);
-      const responseData = await response.text(); // Read the response as text
-      console.log("Response Data:", responseData); // Log the response data
-      const data = JSON.parse(responseData); // Try parsing the response data as JSON
-      console.log("Post muvaffaqiyatli yangilandi!", data);
+      if (response.ok) {
+        const responseData = await response.text(); // Read the response as text
+        console.log("Response Data:", responseData); // Log the response data
+ 
+        // ...
+      } else {
+        console.error("Server returned an error:", response.status);
+        // Handle the error case appropriately
+      }
   
       // Kiritish maydonlarini va progress barlarni tozalash
       event.target.reset();

@@ -18,7 +18,6 @@ import {
   Card,
   CardActions,
   CardContent,
-  CardHeader,
   CardMedia,
   Checkbox,
   IconButton,
@@ -28,7 +27,13 @@ import Input from '@mui/material/Input';
 import DownloadForOfflineIcon from '@mui/icons-material/DownloadForOffline';
 import Autocomplete from '@mui/material/Autocomplete';
 import axios from 'axios';
+import Grid from '@mui/material/Unstable_Grid2';
 
+
+
+
+
+const ariaLabel = { 'aria-label': 'description' };
 const iconStyle = {  display: 'flex', alignItems: 'center', justifyContent: 'center'  };
 const iconSize ={ fontSize: 50}
 
@@ -121,7 +126,7 @@ class MainPage extends Component {
   
     try {
       const imagePath = await this.uploadImage(imageFile);
-      const otherFilePath = await this.uploadOtherFile(otherFile);
+    
   
       const db = getFirestore();
       const postsRef = collection(db, "posts");
@@ -139,7 +144,7 @@ class MainPage extends Component {
   
       
       // Hujjatni yangilash uchun PUT HTTP so'rovi uchun URL
-      const updateUrl = `http://localhost:8080/post/${this.props.postId}`;
+      const updateUrl = `http://localhost:8080/users/${this.props.postId}`;
   
       const requestOptions = {
         method: "PUT", // PUT HTTP so'rovini ishlatish
@@ -191,61 +196,37 @@ class MainPage extends Component {
           <form onSubmit={this.handleSubmit}>
        
           <Card sx={{ marginTop: 5 }}>
-      <CardHeader
-        avatar={
-          <Avatar sx={{ bgcolor: "red" }} aria-label="recipe">
-            R
-          </Avatar>
-        }
-        action={
-          <IconButton aria-label="settings">
-            <MoreVert />
-          </IconButton>
-        }
-        title="John Doe"
-        subheader={ <div>
-             <Autocomplete
-          freeSolo
-          options={countries.map((country) => country.name)}
-          onInputChange={this.handleInputChange}
-          renderInput={(params) => <TextField {...params}   id="standard-multiline-flexible"
-          label="Country"
-          multiline
-          type="text" name="location" 
-          variant="standard" />}
-          renderOption={(props, option) => (
-            <li {...props}>
-              <img src={countries.find((country) => country.name === option).flag} alt={option} width="20" style={{marginRight:5}} />
-              {option}
-            </li>
-          )}
-        />
-      
-        </div> }
-           />
-    <div>
-      {this.state.uploadedImage ? (
-        <CardMedia
-          component="img"
-          height="20%"
-          src={this.state.uploadedImage}
-          alt="Uploaded Image"
-        />
-      ) : (
-        <>
-           <input onClick={this.handleImageChange} type="file" name="imageFile" style={{ display: 'none' }} id="imageFileInput" />
-             <LinearProgress variant="determinate" value={this.state.otherProgressBar} />
-           <label style={iconStyle} htmlFor="imageFileInput">
-          <IconButton component="span" color="primary" aria-label="upload file" title="Upload Other File">
-            <CloudUploadIcon style={iconSize} />
-          </IconButton>
-        </label>
+      <CardContent
+   
 
-          {/* <input type="file" name="imageFile" onChange={this.handleImageChange} />
-          <progress value={this.state.imageProgressBar} max="100" /> */}
-        </>
-      )}
-    </div>
+           > 
+           <Grid container spacing={2}> 
+                <Grid xs={6} md={6}>
+                <Avatar   src="/static/images/avatar/1.jpg"
+                 sx={{ width: 100, height: 100}} aria-label="recipe">
+                 </Avatar>
+             
+                </Grid>
+                <Grid xs={6} md={6}>
+                <div style={{fontSize:"18px" }}>
+                <TextField
+                 id="outlined-uncontrolled"
+                 label="Full Name"
+                 defaultValue="Asadov Ibrat"
+               />
+                  </div> <br/>
+                  <TextField
+                    id="outlined-uncontrolled"
+  label="User Name "
+  defaultValue="IbratJann"
+                  />
+                </Grid>
+              
+                </Grid>
+
+
+           </CardContent>
+
       <CardContent>
         <Typography variant="body2" color="text.secondary">
          <TextField
@@ -261,24 +242,9 @@ class MainPage extends Component {
         {/* <input type="text" name="location"  placeholder="Enter text..." /> */}
         </Typography>
       </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <Checkbox
-            icon={<FavoriteBorder />}
-            checkedIcon={<Favorite sx={{ color: "red" }} />}
-          />
-        </IconButton>
-        <IconButton aria-label="share">
-        <label htmlFor="otherFileInput">
-          <IconButton component="span" color="primary" aria-label="upload file" title="Upload Other File">
-            <AttachFileIcon />
-          </IconButton>
-        </label>
-        </IconButton>
-        <div className="uploadButton">
+  <div className="uploadButton">
           <Button type="submit" variant="contained" endIcon={<DownloadForOfflineIcon />}>Upload</Button>
         </div>
-      </CardActions>
     </Card>
 
     <div>

@@ -8,7 +8,7 @@ import Statusa from "./follow"
 const Feed = (props) => {
 
   const userId = props.dataUser.userId;
-  console.log(userId);
+  
 
   const [loading, setLoading] = useState(true);
 
@@ -29,7 +29,7 @@ const Feed = (props) => {
         
         <>
   
-        <Statusa userId={userId}/>
+        <Statusa userId={userId} authUserID={props.authUserID}/>
         <StatusBarUsers userId={props.dataUser.userId} />
         <MainPageUsers userId={props.dataUser.userId}/>
           <Post />

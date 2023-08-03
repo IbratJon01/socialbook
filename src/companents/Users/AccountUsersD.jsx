@@ -31,7 +31,7 @@ function App(props) {
 
         <Stack direction="row" spacing={2} justifyContent="space-between">
         <Sidebar setMode={setMode} mode={mode}/>
-        <Feed dataUser={dataUser} />
+        <Feed dataUser={dataUser} authUserID={authUserID}/>
          <Rightbar /> {/* <StatusBar/> */}
        
        

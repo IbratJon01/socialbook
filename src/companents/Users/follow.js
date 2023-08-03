@@ -12,7 +12,7 @@ import IconButton from '@mui/material/IconButton';
 import { Link } from 'react-router-dom';
 import Setting from '../Account/Setting'
 
-const UserStatusList = ({ userId  }) => {
+const UserStatusList = ({ userId ,authUserID }) => {
 
   const [followers, setFollowers] = useState([]);
   const [following, setFollowing] = useState([]);
