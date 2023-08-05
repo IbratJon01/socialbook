@@ -12,7 +12,7 @@ import IconButton from '@mui/material/IconButton';
 import { Link } from 'react-router-dom';
 import Setting from '../Account/Setting'
 
-const UserStatusList = ({ userId ,authUserID }) => {
+const UserStatusList = ({ userId , userAuthData }) => {
 
   const [followers, setFollowers] = useState([]);
   const [following, setFollowing] = useState([]);
@@ -92,15 +92,19 @@ const UserStatusList = ({ userId ,authUserID }) => {
   }, [userId]);
   
 
-
+  
 
   return (
     <div>
      
      <div className='header'>
         {/* Sozlamalar (Settings) buttoni */}
-        <Setting />
-       
+        {/* <Setting userAuthData={userAuthData} /> */}
+        {userId == userAuthData.userId ? (
+        <Setting userAuthData={userAuthData} />
+      ) : (
+        <div className='userNameOther'>@{userData.userName}</div>
+      )}
    
       </div>
 
@@ -108,7 +112,7 @@ const UserStatusList = ({ userId ,authUserID }) => {
 
        <Grid container >
       
-           <Grid  item xs={3} ><div className='profel_img2'><Avatar className="img__status" src={prof_img}/></div></Grid>
+           <Grid  item xs={3} ><div className='profel_img2'><Avatar className="img__status" src={userData.profileImage}/></div></Grid>
            <Grid item xs={9}>
            <Grid container className='follow_status'> 
            <Grid item xs={3}> <Button variant="text" >0 posts</Button></Grid>
@@ -117,7 +121,7 @@ const UserStatusList = ({ userId ,authUserID }) => {
            </Grid>
            
       </Grid>
-      <div className='bio'> <span className='text1'> <span className='userName'>Bio :</span> We’ve trained a model called ChatGPT which interacts in a conversational way. The dialogue format makes it possible for ChatGPT to answer followup questions, admit its mistakes, challenge incorrect premises, and reject inappropriate requests.</span> </div>
+      <div className='bio'> <span className='text1'> <span className='userName'>Bio :</span> {userData.bio}</span> </div>
      
       <div>
  

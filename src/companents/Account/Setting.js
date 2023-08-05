@@ -56,7 +56,7 @@ const StyledMenu = styled((props) => (
   },
 }));
 
-export default function CustomizedMenus() {
+export default function CustomizedMenus(userAuthData) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [isEditMode, setEditMode] = React.useState(false);
 
@@ -122,7 +122,7 @@ export default function CustomizedMenus() {
       <Dialog open={isEditMode} maxWidth="sx" onClose={handleDialogClose}>
         <DialogTitle>Edit Post</DialogTitle>
         <DialogContent>
-        <EditUser/>
+        <EditUser userAuthData={userAuthData} />
         
 
         </DialogContent>

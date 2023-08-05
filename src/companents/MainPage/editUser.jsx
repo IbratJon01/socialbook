@@ -44,7 +44,7 @@ class MainPage extends Component {
             postArray:[],
             progressBar: "",
             open: false, 
-            location: "",
+            userName: "",
             text: "",
             name:"",
             imageProgressBar: 0,
@@ -116,7 +116,7 @@ class MainPage extends Component {
     event.preventDefault();
     const imageFile = event.target.elements.imageFile.files[0];
     const text = event.target.elements.text.value;
-    const userName = event.target.elements.location.value;
+    const userName = event.target.elements.userName.value;
     const name = event.target.elements.name.value;
     // Tekshirish: Hujjatlar va matnni to'ldirish
     if (!imageFile || !text.trim()) {
@@ -133,7 +133,7 @@ class MainPage extends Component {
       
       const now = new Date();
       const payload = {
-        postPath: imagePath,
+        profileImage: imagePath,
         bio: text,
         userName: userName,
         name:name,
@@ -144,7 +144,7 @@ class MainPage extends Component {
   
       
       // Hujjatni yangilash uchun PUT HTTP so'rovi uchun URL
-      const updateUrl = `http://localhost:8080/users/${this.props.postId}`;
+      const updateUrl = `http://localhost:8080/users/${this.props.userAuthData.userAuthData.userId}`;
   
       const requestOptions = {
         method: "PUT", // PUT HTTP so'rovini ishlatish
@@ -153,8 +153,15 @@ class MainPage extends Component {
       };
   
       const response = await fetch(updateUrl, requestOptions);
-      const data = await response.json();
-      console.log("Post muvaffaqiyatli yangilandi!", data);
+      if (response.ok) {
+        const responseData = await response.text(); // Read the response as text
+        console.log("Response Data:", responseData); // Log the response data
+ 
+        // ...
+      } else {
+        console.error("Server returned an error:", response.status);
+        // Handle the error case appropriately
+      }
   
       // Kiritish maydonlarini va progress barlarni tozalash
       event.target.reset();
@@ -190,7 +197,7 @@ class MainPage extends Component {
 
     render() { 
       const { inputValue, countries } = this.state;
-        console.log(this.props.postId);
+        console.log(this.props.userAuthData);
         return ( 
             <div>
           <form onSubmit={this.handleSubmit}>
@@ -202,7 +209,7 @@ class MainPage extends Component {
            > 
            <Grid container spacing={2}> 
                 <Grid xs={6} md={6}>
-                <Avatar   src="/static/images/avatar/1.jpg"
+                <Avatar   src={this.props.userAuthData.userAuthData.profileImage}
                  sx={{ width: 100, height: 100}} aria-label="recipe">
                  </Avatar>
              
@@ -210,15 +217,17 @@ class MainPage extends Component {
                 <Grid xs={6} md={6}>
                 <div style={{fontSize:"18px" }}>
                 <TextField
+                  type="text" name="name" 
                  id="outlined-uncontrolled"
                  label="Full Name"
-                 defaultValue="Asadov Ibrat"
+                 defaultValue={this.props.userAuthData.userAuthData.name}
                />
                   </div> <br/>
                   <TextField
                     id="outlined-uncontrolled"
-  label="User Name "
-  defaultValue="IbratJann"
+                    type="text" name="userName" 
+                    label="User Name "
+                    defaultValue={this.props.userAuthData.userAuthData.userName}
                   />
                 </Grid>
               
@@ -237,30 +246,29 @@ class MainPage extends Component {
           maxRows={4}
           variant="standard"
           style={ {width: '350px'} }
+          defaultValue={this.props.userAuthData.userAuthData.bio}
  
         />
         {/* <input type="text" name="location"  placeholder="Enter text..." /> */}
         </Typography>
       </CardContent>
+            <input type="file" name="imageFile" onChange={this.handleImageChange} />
+          <progress value={this.state.imageProgressBar} max="100" />
   <div className="uploadButton">
           <Button type="submit" variant="contained" endIcon={<DownloadForOfflineIcon />}>Upload</Button>
         </div>
     </Card>
 
-    <div>
-     
-     </div>
 
+
+  
 
              {/* <div>
     
     <input type="file" name="imageFile" />
     <progress value={this.state.imageProgressBar} max="100" />
              </div> */}
-      <div>
-         <input type="file" name="otherFile" style={{ display: 'none' }} id="otherFileInput" />
-         <LinearProgress variant="determinate" value={this.state.otherProgressBar} />
-     </div>
+ 
    
 
 

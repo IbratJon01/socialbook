@@ -6,7 +6,7 @@
 
  import Demojs from './companents/Account/demo'
 import  AccountUsersD from './companents/Users/AccountUsersD';
-import CreatPost from './companents/MainPage/updatePost';
+import CreatPost from './companents/MainPage/editUser';
 
 
 // Check if localStorage is available in the current environment
