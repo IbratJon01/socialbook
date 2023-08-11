@@ -3,7 +3,7 @@
  import logo from './logo.svg';
  import './App.css';
  import LoginPage from './companents/LoginPage/LoginPage';
-
+import Chat from './companents/Chat/chatApp'
  import Demojs from './companents/Account/demo'
 import  AccountUsersD from './companents/Users/AccountUsersD';
 import CreatPost from './companents/MainPage/editUser';
@@ -41,7 +41,7 @@ console.log(usersData);
          <Route path="/account-user"   element={
     usersData && usersData.uid ? <AccountUsersD userId={usersData.uid}/> : <LoginPage /> }
     />
-         <Route path="/creat-post" element={<CreatPost/>}/>
+         <Route path="/creat-post" element={<Chat/>}/>
       
        </Routes>
      </Router>
