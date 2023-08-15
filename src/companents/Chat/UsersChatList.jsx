@@ -6,15 +6,16 @@ import axios from 'axios';
 import {  Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, List, ListItem, ListItemText } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
-function UsersChatList() {
+function UsersChatList(authUsers) {
 
-
+console.log(authUsers.authUsers);
+const userNameAuth =authUsers.authUsers.userName
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
       async function fetchUsers() {
         try {
-          const response = await axios.get('http://localhost:8080/api/chat/allmessages/IbratJann'); // Your API endpoint here
+          const response = await axios.get(`http://localhost:8080/api/chat/allmessages/${userNameAuth}`); // Your API endpoint here
           setUsers(response.data.allUsers);
         } catch (error) {
           console.error('Error fetching users:', error);
@@ -22,7 +23,7 @@ function UsersChatList() {
       }
       fetchUsers();
     }, []);
-    console.log(users);
+ 
     return (
     <>
      <List>
@@ -37,7 +38,7 @@ function UsersChatList() {
                         <span className='text'>
                           <span
                             className='userName'>
-                            <Link className='link' to='/creat-post' state={{dataUser:users}}> {users.userName} </Link>
+                            <Link className='link' to='/chat' state={{dataUser:users , authUsers:authUsers.authUsers}}> {users.userName} </Link>
                             
                           </span>
                           <br />

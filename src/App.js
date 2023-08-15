@@ -3,11 +3,11 @@
  import logo from './logo.svg';
  import './App.css';
  import LoginPage from './companents/LoginPage/LoginPage';
-import Chat from './companents/Chat/chatApp'
+import Chat from './companents/Chat/App'
  import Demojs from './companents/Account/demo'
 import  AccountUsersD from './companents/Users/AccountUsersD';
 import CreatPost from './companents/MainPage/editUser';
-
+import Messages from './companents/Chat/testChat'
 
 // Check if localStorage is available in the current environment
 const isLocalStorageAvailable = typeof localStorage !== 'undefined';
@@ -41,7 +41,8 @@ console.log(usersData);
          <Route path="/account-user"   element={
     usersData && usersData.uid ? <AccountUsersD userId={usersData.uid}/> : <LoginPage /> }
     />
-         <Route path="/creat-post" element={<Chat/>}/>
+         <Route path="/chat" element={<Chat/>}/>
+         <Route path="/messages" element={<Messages/>}/>
       
        </Routes>
      </Router>

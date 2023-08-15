@@ -11,6 +11,12 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp'; // Logout/Edit ikonin
 import IconButton from '@mui/material/IconButton';
 import { Link } from 'react-router-dom';
 import Setting from '../Account/Setting'
+import MapsUgcOutlinedIcon from '@mui/icons-material/MapsUgcOutlined';
+import {
+  ListItemButton,
+  ListItemIcon,
+} from "@mui/material";
+import { Message } from '@mui/icons-material';
 
 const UserStatusList = ({ userId , userAuthData }) => {
 
@@ -104,8 +110,18 @@ const UserStatusList = ({ userId , userAuthData }) => {
         <Setting userAuthData={userAuthData} />
       ) : (
         <div className='userNameOther'>@{userData.userName}</div>
+      
       )}
+      <div>
+      <ListItemButton style={{marginTop:70 }}  className='userNameOther' component={Link} to="/chat" state={{dataUser:userData,authUsers:userAuthData}} >
+          <ListItemIcon>
+            <Message style={{color:"#ffff",fontSize:"30px"}}/>
+          </ListItemIcon>
+        </ListItemButton>
+    </div>   
+  
    
+
       </div>
 
     

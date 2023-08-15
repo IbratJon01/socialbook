@@ -82,11 +82,11 @@ const Sidebar = ({mode,setMode ,userId}) => {
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
-            <ListItemButton component="a" href="/">
+            <ListItemButton  component={Link} to="/chat" state={{authUsers:userData}} >
               <ListItemIcon>
                 <MapsUgcOutlinedIcon />
               </ListItemIcon>
-              <ListItemText primary="Messages" />
+              <ListItemText primary="Messages"  />
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>

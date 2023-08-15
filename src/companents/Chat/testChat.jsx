@@ -53,20 +53,6 @@ const App = () => {
   if (!userName) {
     return <div>
 
-<Container>
-    <Grid container spacing={3}>
-      <Grid item xs={12} md={5}>
-        <Paper>
-          <div style={{ display: 'flex', textAlign: 'center', justifyContent: 'center', alignItems: 'center', marginTop: 15 }}>
-            <br />
-            <Search />
-          </div>
-          <div>
-            <UsersChatList authUsers={authUsers} />
-          </div>
-        </Paper>
-      </Grid>
-      <Grid item xs={12} md={6}>
         <Paper  style={{ height: '100%', marginTop:'15px'}}> 
           <div style={{ height:"80%", display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '20px' }}>
                 <ContactSupportIcon style={{ fontSize: '48px', marginRight: '10px' }} />
@@ -76,28 +62,14 @@ const App = () => {
                 </div>
               </div>
         </Paper>
-      </Grid>
-    </Grid>
-   </Container>
+
 
     </div>;
   }
 
   return (
-    <Container>
-    <Grid container spacing={3}>
-      <Grid item xs={12} md={5}>
-        <Paper>
-          <div style={{ display: 'flex', textAlign: 'center', justifyContent: 'center', alignItems: 'center', marginTop: 15 }}>
-            <br />
-            <Search />
-          </div>
-          <div>
-            <UsersChatList />
-          </div>
-        </Paper>
-      </Grid>
-      <Grid item xs={12} md={6}>
+
+
         <Paper style={{marginTop: 15 }}>
           <div style={{ display: 'flex', flexDirection: 'column',height: '100%' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px' }}>
@@ -117,9 +89,7 @@ const App = () => {
             <ChatForm onSubmit={handleSubmit} sender={AuthUserName} receiver={userName} style={{ flexGrow: 1 }} />
           </div>
         </Paper>
-      </Grid>
-    </Grid>
-   </Container>
+
   );
 };
 
