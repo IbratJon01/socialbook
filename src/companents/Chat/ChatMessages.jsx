@@ -10,9 +10,11 @@ import MenuItem from '@mui/material/MenuItem';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-const ChatMessages = ({ messages, AuthUserName }) => { 
+const ChatMessages = ({ messages, AuthUserName,onDeleteMessage }) => { 
+  
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+ 
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -23,30 +25,12 @@ const ChatMessages = ({ messages, AuthUserName }) => {
   };
 const name = AuthUserName;
   console.log(AuthUserName);
-  const handleDeleteMessage = async (messageId) => {
-    try {
-      // Replace 'YOUR_API_URL' with the actual API endpoint for deleting a message
-      const response = await fetch(`http://localhost:8080/api/chat/delete/${messageId}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
 
-      if (response.ok) {
-        console.log(messageId);
-        // You can update your local state here or fetch updated data from the server
-      } else {
-        console.error('Failed to delete message');
-      }
-    } catch (error) {
-      console.error('Error deleting message:', error);
-    }
-  };
 
   return (
      <List>
     {messages.map((message, index) => (
+      
       
       <ListItem
         key={index}
@@ -55,12 +39,24 @@ const name = AuthUserName;
           flexDirection: message.sentByCurrentUser ? 'row-reverse' : 'row', // Align messages to the right or left based on sender
           alignItems: 'flex-start',
         }}
+
+     
       >
+        <div 
+         
+        >{message.id}</div>
         {message.sender.userName === "Ibrat_Jann" && !message.sentByCurrentUser && (
           <ListItemText
           
-            primary={message.sender.userName}
-            secondary={<div style={{ color:'#fffff'}}>{message.content}</div>}
+            primary={<>
+            <span>{message.sender.userName}</span>
+            <span style={{float: "right"}}>{message.read == true ? (
+              <span>T</span>
+            ) : (
+              <span>F</span>
+            
+            )}</span></>}
+            secondary={<div style={{ color:'#fffff'}}>{message.content}+{message.id}</div>}
             sx={{
             
               backgroundColor: message.sentByCurrentUser ? '#fffff' : '#1976d2',
@@ -78,15 +74,26 @@ const name = AuthUserName;
             onContextMenu={(e) => {
               e.preventDefault(); // Sukutiyani o'zgartiring
               handleMenuOpen(e); // Maxsus ixtiyoriy menuni ochish
+            //  onChange={(e) => setContent(e.target.value)}
             }}
           />
+
+          
         )}
 
        
 
         {message.sender.userName !== 'Ibrat_Jann' && (
           <ListItemText
-            primary={message.sender.userName}
+            primary={
+            <div>
+              <span>{message.sender.userName}</span>
+              <span>{message.sender.userName  == name ? (
+        <span>{message.read}</span>
+      ) : (
+        <span>{message.read}</span>
+      
+      )}</span></div>}
             secondary={message.content}
             sx={{
               backgroundColor: message.sentByCurrentUser ? '#f5f5f5' : '#f5f5f5',
@@ -94,8 +101,15 @@ const name = AuthUserName;
               padding: '10px',
               maxWidth: '70%',
             }}
+            onContextMenu={(e) => {
+              e.preventDefault(); // Sukutiyani o'zgartiring
+              handleMenuOpen(e); // Maxsus ixtiyoriy menuni ochish
+            //  onChange={(e) => setContent(e.target.value)}
+            }}
           />
         )}
+
+        
         
          <Menu
         anchorEl={anchorEl}
@@ -103,7 +117,9 @@ const name = AuthUserName;
         onClose={handleMenuClose}
       >
         <MenuItem onClick={handleMenuClose}> <EditIcon /> <span style={{marginLeft:5}}>Tahrirlash</span> </MenuItem>
-        <MenuItem   onClick={() => handleDeleteMessage(message.id)}> <DeleteIcon /> <span style={{marginLeft:5}}>O'chirish</span></MenuItem>
+        <MenuItem onClick={() => onDeleteMessage(message.id)} onClose={handleMenuClose}>
+              <DeleteIcon /> O'chirish
+            </MenuItem>
         <MenuItem>{message.id}</MenuItem>
       </Menu>
      
@@ -111,7 +127,9 @@ const name = AuthUserName;
      
       </ListItem>
       
-    ))}
+    )
+    
+    )}
 
     
   </List>

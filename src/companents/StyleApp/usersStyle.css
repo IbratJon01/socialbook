@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Hind&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+
+
+.userName{
+    /* font-family: Arial, Helvetica, sans-serif; */
+    font-family: 'Rubik', sans-serif;
+    color: #1179db;
+
+}
+.messagereceiverCost{
+    border-radius: 100%;
+    background-color: #1179db;
+    color: #ffff;
+    padding: 5px;
+    padding-left: 7px;
+    padding-right: 7px;
+    font-family:'Hind',sans-serif
+}

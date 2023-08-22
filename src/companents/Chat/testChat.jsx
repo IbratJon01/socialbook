@@ -50,6 +50,32 @@ const App = () => {
       fetchMessages(userName);
     }
   };
+
+
+  const handleDeleteMessage = async (messageId) => {
+    try {
+      const response = await fetch(`http://localhost:8080/api/chat/delete/${messageId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+  
+      if (response.ok) {
+        console.log('Message deleted successfully');
+        // Fetch updated messages after successful deletion
+        fetchMessages(userName);
+      } else {
+        console.error('Failed to delete message');
+      }
+    } catch (error) {
+      console.error('Error deleting message:', error);
+    }
+  };
+  
+
+
+
   if (!userName) {
     return <div>
 
@@ -67,6 +93,8 @@ const App = () => {
     </div>;
   }
 
+  console.log(messages);
+
   return (
 
 
@@ -83,7 +111,7 @@ const App = () => {
               <div>Header Actions (if any)</div>
             </div>
           <div style={{ overflowY: 'auto', flexGrow: 1, maxHeight: '70vh' }}>
-            <ChatMessages messages={messages} AuthUserName={AuthUserName}/>
+             <ChatMessages messages={messages} AuthUserName={AuthUserName} onDeleteMessage={handleDeleteMessage} />
           </div>
           
             <ChatForm onSubmit={handleSubmit} sender={AuthUserName} receiver={userName} style={{ flexGrow: 1 }} />

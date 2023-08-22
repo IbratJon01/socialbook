@@ -9,7 +9,8 @@ import UsersChatList from './UsersChatList';
 import { useLocation } from 'react-router-dom';
 import ContactSupportIcon from '@mui/icons-material/ContactSupport';
 import Avatar from '@mui/material/Avatar';
-import Messages from '../Chat/testChat'
+import Messages from './testChat'
+import Sidebar from './SidebarChat'
 
 const App = () => {
   const location = useLocation();
@@ -20,8 +21,9 @@ const App = () => {
 
   return(
     <Container>
-    <Grid container spacing={3}>
-      <Grid item xs={12} md={5}> <Paper>
+    <Grid container spacing={3}> 
+     <Grid item xs={12} md={1.2}><Sidebar/></Grid>
+      <Grid item xs={12} md={4.5}> <Paper>
           <div style={{ display: 'flex', textAlign: 'center', justifyContent: 'center', alignItems: 'center', marginTop: 15 }}>
             <br />
             <Search />
@@ -30,7 +32,8 @@ const App = () => {
             <UsersChatList authUsers={authUsers} />
           </div>
         </Paper></Grid>
-      <Grid item xs={12} md={5}><Messages/></Grid>
+      <Grid item xs={12} md={6}><Messages/></Grid>
+     
       
       </Grid></Container>
   )
