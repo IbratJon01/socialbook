@@ -17,7 +17,7 @@ const [userData, setUserData] = useState(null);
   setTimeout(() => {
     setLoading(false);
   }, [3000]);
-  console.log(props.dataUser);
+ 
 
 
 

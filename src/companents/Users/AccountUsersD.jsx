@@ -13,7 +13,6 @@ function App(props) {
   const dataUser = location.state?.dataUser;
   
   const [mode, setMode] = useState("light");
-  console.log(props.userId);
   const authUserID  = props.userId
   const darkTheme = createTheme({
     palette: {
@@ -38,7 +37,7 @@ function App(props) {
           
         </Stack>
     
-        <FooterBar/>
+        <FooterBar AuthData={dataUser}/>
 
       </Box>
     </ThemeProvider>

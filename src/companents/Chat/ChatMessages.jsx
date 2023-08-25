@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import {  Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core';
+
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import EditIcon from '@mui/icons-material/Edit';
@@ -12,19 +10,22 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 const ChatMessages = ({ messages, AuthUserName,onDeleteMessage }) => { 
   
-  const [open, setOpen] = useState(false);
-  const [anchorEl, setAnchorEl] = useState(null);
- 
 
-  const handleMenuOpen = (event) => {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [selectedMessageId, setSelectedMessageId] = useState(null);
+
+
+  const handleMenuOpen = (event, messageId) => {
     setAnchorEl(event.currentTarget);
+    setSelectedMessageId(messageId);
   };
 
   const handleMenuClose = () => {
     setAnchorEl(null);
+    setSelectedMessageId(null);
   };
 const name = AuthUserName;
-  console.log(AuthUserName);
+
 
 
   return (
@@ -72,9 +73,8 @@ const name = AuthUserName;
               
             }}
             onContextMenu={(e) => {
-              e.preventDefault(); // Sukutiyani o'zgartiring
-              handleMenuOpen(e); // Maxsus ixtiyoriy menuni ochish
-            //  onChange={(e) => setContent(e.target.value)}
+              e.preventDefault();
+              handleMenuOpen(e, message.id);
             }}
           />
 
@@ -112,12 +112,16 @@ const name = AuthUserName;
         
         
          <Menu
+     
         anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
+        open={Boolean(anchorEl) && selectedMessageId === message.id}
         onClose={handleMenuClose}
       >
         <MenuItem onClick={handleMenuClose}> <EditIcon /> <span style={{marginLeft:5}}>Tahrirlash</span> </MenuItem>
-        <MenuItem onClick={() => onDeleteMessage(message.id)} onClose={handleMenuClose}>
+        <MenuItem onClick={() => {
+  onDeleteMessage(message.id);
+  handleMenuClose();
+}}>
               <DeleteIcon /> O'chirish
             </MenuItem>
         <MenuItem>{message.id}</MenuItem>

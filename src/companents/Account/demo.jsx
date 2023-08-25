@@ -53,7 +53,7 @@ function App(userId) {
           
         </Stack>
     
-        <FooterBar/>
+        <FooterBar AuthData={userData}/>
 
       </Box>
     </ThemeProvider>

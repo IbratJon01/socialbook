@@ -43,7 +43,6 @@ export default function LongMenu({ deletePost , postId }) {
   const handleDialogClose = () => {
     setEditMode(false);
   };
-console.log(postId);
   return (
     <div>
       <IconButton

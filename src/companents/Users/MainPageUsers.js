@@ -27,7 +27,7 @@ class MainPageUsers extends Component {
     getPost=()=>{ 
 
         const thisContext=this;
-       console.log(this.props.userId);
+     
         fetch('http://localhost:8080/post')
             .then(response => response.json())
             .then(data => {
@@ -35,7 +35,7 @@ class MainPageUsers extends Component {
                 const filteredPosts = data.filter(post => post.userId == this.props.userId);
              
                 thisContext.setState({postArray: filteredPosts});
-                console.log(filteredPosts);
+             
      
                 
         });

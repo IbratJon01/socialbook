@@ -33,7 +33,6 @@ class StatusBarUsers extends Component {
     getPost = () => {
         // Implement your logic to get post data
         // and update the state with the received data
-        console.log(this.props.userId+"This Id");
     }
 
     uploadStatus = (event) => {

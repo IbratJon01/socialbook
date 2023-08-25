@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import ChatForm from './ChatForm';
 import ChatMessages from './ChatMessages';
-import Search from '../search/App';
-import UsersChatList from './UsersChatList';
 import { useLocation } from 'react-router-dom';
 import ContactSupportIcon from '@mui/icons-material/ContactSupport';
 import Avatar from '@mui/material/Avatar';
+import {
+  ListItemButton,
+  ListItemText,
+} from '@mui/material';
 
 const App = () => {
   const location = useLocation();
@@ -17,7 +17,6 @@ const App = () => {
   const AuthUserName = authUsers ? authUsers.userName : null;
   const [messages, setMessages] = useState([]);
 
-  console.log(authUsers);
   useEffect(() => {
     if (userName) {
       fetchMessages(userName);
@@ -40,17 +39,20 @@ const App = () => {
 
   const handleSubmit = async (data) => {
     if (userName) {
-      await fetch('http://localhost:8080/api/chat/send', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-      fetchMessages(userName);
+      try {
+        await fetch('http://localhost:8080/api/chat/send', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+        fetchMessages(userName);
+      } catch (error) {
+        console.error('Error sending message:', error);
+      }
     }
   };
-
 
   const handleDeleteMessage = async (messageId) => {
     try {
@@ -60,10 +62,9 @@ const App = () => {
           'Content-Type': 'application/json',
         },
       });
-  
+
       if (response.ok) {
         console.log('Message deleted successfully');
-        // Fetch updated messages after successful deletion
         fetchMessages(userName);
       } else {
         console.error('Failed to delete message');
@@ -72,52 +73,48 @@ const App = () => {
       console.error('Error deleting message:', error);
     }
   };
-  
 
-
-
-  if (!userName) {
-    return <div>
-
-        <Paper  style={{ height: '100%', marginTop:'15px'}}> 
-          <div style={{ height:"80%", display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '20px' }}>
-                <ContactSupportIcon style={{ fontSize: '48px', marginRight: '10px' }} />
-                <div>
-                  <h2>Your messages</h2>
-                  <p>Send private photos and messages to a friend or group</p>
-                </div>
-              </div>
-        </Paper>
-
-
-    </div>;
-  }
-
-  console.log(messages);
+  const goBack = () => {
+    window.history.back();
+  };
 
   return (
-
-
-        <Paper style={{marginTop: 15 }}>
-          <div style={{ display: 'flex', flexDirection: 'column',height: '100%' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px' }}>
+    <div>
+      {!userName ? (
+        <Paper style={{ height: '100%', marginTop: '15px' }}>
+          <div style={{ height: '80%', display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '20px' }}>
+            <ContactSupportIcon style={{ fontSize: '48px', marginRight: '10px' }} />
+            <div>
+              <h2>Your messages</h2>
+              <p>Send private photos and messages to a friend or group</p>
+            </div>
+          </div>
+        </Paper>
+      ) : (
+        <Paper  style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px' }}>
               <div style={{ display: 'flex', alignItems: 'center' }}>
-                <Avatar style={{ marginRight: '15px' ,marginLeft:'15px' ,width:45,height:45}}/>
+                <Avatar style={{ marginRight: '15px', marginLeft: '15px', width: 45, height: 45 }} src={dataUser.profileImage} />
                 <div>
                   <div></div>
                   <div>{userName}</div>
                 </div>
               </div>
-              <div>Header Actions (if any)</div>
+              <div>
+                <ListItemButton onClick={goBack}>
+                  <ListItemText>
+                    <h3>Go out</h3>
+                  </ListItemText>
+                </ListItemButton>
+              </div>
             </div>
-          <div style={{ overflowY: 'auto', flexGrow: 1, maxHeight: '70vh' }}>
-             <ChatMessages messages={messages} AuthUserName={AuthUserName} onDeleteMessage={handleDeleteMessage} />
-          </div>
-          
+            <div style={{ overflowY: 'auto', flexGrow: 1, maxHeight: '70vh' }}>
+              <ChatMessages messages={messages} AuthUserName={AuthUserName} onDeleteMessage={handleDeleteMessage} />
+            </div>
             <ChatForm onSubmit={handleSubmit} sender={AuthUserName} receiver={userName} style={{ flexGrow: 1 }} />
-          </div>
         </Paper>
-
+      )}
+    </div>
   );
 };
 

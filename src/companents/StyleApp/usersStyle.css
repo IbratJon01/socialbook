@@ -13,8 +13,8 @@
     border-radius: 100%;
     background-color: #1179db;
     color: #ffff;
-    padding: 5px;
+    /* padding: 4px; */
     padding-left: 7px;
-    padding-right: 7px;
+    padding-right:7px;
     font-family:'Hind',sans-serif
 }

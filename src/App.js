@@ -8,6 +8,7 @@ import Chat from './companents/Chat/App'
 import  AccountUsersD from './companents/Users/AccountUsersD';
 import CreatPost from './companents/MainPage/editUser';
 import Messages from './companents/Chat/testChat'
+import ChatApp from './companents/Atest/App'
 
 // Check if localStorage is available in the current environment
 const isLocalStorageAvailable = typeof localStorage !== 'undefined';
@@ -43,7 +44,7 @@ console.log(usersData);
     />
          <Route path="/chat" element={<Chat/>}/>
          <Route path="/messages" element={<Messages/>}/>
-      
+         <Route path="/chat1" element={<ChatApp/>}/>
        </Routes>
      </Router>
  </div>
